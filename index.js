@@ -29,6 +29,8 @@ let cardPage = document.querySelector(".card-page")
 let characterName = document.querySelector(".character-name")
 let characterStats = document.querySelector(".stats")
 let imgContainer = document.querySelector(".imagecontainer")
+let drawnCharacters = []
+
 
 function getCharacter(){
     let commonIndex = Math.floor(Math.random() * commonCharacters.length)
@@ -50,7 +52,6 @@ function getCharacter(){
     imgContainer.appendChild(characterImg)
     characterName.textContent = characterSelection.name
     characterStats.textContent = "Atk: " + characterSelection.Atk + " Def: "  + characterSelection.Def
-    console.log(characterSelection.img)
 }
 
 
@@ -59,6 +60,10 @@ function startFunction(){
     getCharacter()
 }
 
+function characterStorage(){
+    localStorage.setItem("playerCharacters", JSON.stringify(characterSelection))
+    
+}
 
 function storageFunction() {
     window.location.href = "storage/storage.html";
