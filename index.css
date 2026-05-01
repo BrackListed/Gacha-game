@@ -110,5 +110,5 @@ button.frosty:hover {
 
 @keyframes drawAnimation{
     0%{transform: translateY(30%);}
-    90%{transform: translateY(10%);}
+    90%{transform: translateY(10%); transform: scale(1.2);}
 }
