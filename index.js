@@ -29,7 +29,8 @@ let cardPage = document.querySelector(".card-page")
 let characterName = document.querySelector(".character-name")
 let characterStats = document.querySelector(".stats")
 let imgContainer = document.querySelector(".imagecontainer")
-let drawnCharacters = []
+let storedCharacters = JSON.parse(localStorage.getItem("stored-characters")) || []
+let characterSelection = null
 
 
 function getCharacter(){
@@ -48,6 +49,7 @@ function getCharacter(){
         characterSelection = mythicalCharacters[mythicalIndex]
     }
     let characterImg = document.createElement("img")
+
     characterImg.src = characterSelection.img
     imgContainer.appendChild(characterImg)
     characterName.textContent = characterSelection.name
@@ -62,7 +64,9 @@ function startFunction(){
 
 function characterStorage(){
     localStorage.setItem("playerCharacters", JSON.stringify(characterSelection))
-    
+    storedCharacters.push(characterSelection)
+    localStorage.setItem("stored-characters", JSON.stringify(storedCharacters))
+    console.log(storedCharacters)
 }
 
 function storageFunction() {
@@ -72,3 +76,7 @@ function storageFunction() {
 function battleFunction() {
     window.location.href = "duels/duels.html";
 }
+
+console.log(localStorage.getItem("stored-characters"))
+console.log(storedCharacters)
+console.log(characterSelection)
