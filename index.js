@@ -1,5 +1,3 @@
-// Create a deck filled with common characters, when you click start you have a 70% chance to return a character from the common pool, 20% to get characters like tanjiro from the rare pool
-
 let commonCharacters = [
     {name: "Takemichi Hanagaki", Atk: 10, Def: 10, img: "characters/Common/Takemichi_Hanagaki.png"},
     {name: "Haruka Sakura", Atk: 10, Def: 10, img: "characters/Common/Haruka_Sakura.png"},
@@ -23,7 +21,7 @@ let mythicalCharacters = [
 ]
 
 let characterDeck = [...commonCharacters, ...rareCharacters, ...legendaryCharacters, ...mythicalCharacters]
-//make this useful somehow idk
+
 
 let cardPage = document.querySelector(".card-page")
 let characterName = document.querySelector(".character-name")
@@ -66,7 +64,6 @@ function characterStorage(){
     localStorage.setItem("playerCharacters", JSON.stringify(characterSelection))
     storedCharacters.push(characterSelection)
     localStorage.setItem("stored-characters", JSON.stringify(storedCharacters))
-    console.log(storedCharacters)
 }
 
 function storageFunction() {
@@ -77,6 +74,3 @@ function battleFunction() {
     window.location.href = "duels/duels.html";
 }
 
-console.log(localStorage.getItem("stored-characters"))
-console.log(storedCharacters)
-console.log(characterSelection)
