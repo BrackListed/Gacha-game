@@ -55,3 +55,25 @@ body{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow: hidden;
 }
+
+.character img{
+    width: 70%;
+    height: 70%
+}
+
+
+
+.stats, .name{
+    height: 15%;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.stats{
+    margin-top: 5px;
+}
+
+.disabled{
+    display:  none;
+}
