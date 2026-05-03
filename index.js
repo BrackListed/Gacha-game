@@ -61,7 +61,7 @@ function startFunction(){
 }
 
 function characterStorage(){
-    if(storedCharacters.length > 10){
+    if(storedCharacters.length >= 10){
         alert("You already have 10 characters stored! Go to the storage section and delete some first!")
     } else {
         localStorage.setItem("playerCharacters", JSON.stringify(characterSelection))
@@ -69,7 +69,6 @@ function characterStorage(){
         localStorage.setItem("stored-characters", JSON.stringify(storedCharacters))
         console.log(storedCharacters.length)
     }
-    console.log(storedCharacters.length)
 
 }
 
@@ -81,3 +80,5 @@ function battleFunction() {
     window.location.href = "duels/duels.html";
 }
 
+
+console.log(storedCharacters.length)

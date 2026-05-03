@@ -77,3 +77,11 @@ body{
 .disabled{
     display:  none;
 }
+
+.character button{
+    margin-left: 90%;
+    background-color: goldenrod;
+    color: red;
+    width: 10%;
+    height: auto;
+}
