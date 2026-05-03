@@ -67,7 +67,6 @@ function characterStorage(){
         localStorage.setItem("playerCharacters", JSON.stringify(characterSelection))
         storedCharacters.push(characterSelection)
         localStorage.setItem("stored-characters", JSON.stringify(storedCharacters))
-        console.log(storedCharacters.length)
     }
 
 }
@@ -80,5 +79,4 @@ function battleFunction() {
     window.location.href = "duels/duels.html";
 }
 
-
-console.log(storedCharacters.length)
+console.log(storedCharacters)
