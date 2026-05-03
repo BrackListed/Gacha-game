@@ -61,9 +61,16 @@ function startFunction(){
 }
 
 function characterStorage(){
-    localStorage.setItem("playerCharacters", JSON.stringify(characterSelection))
-    storedCharacters.push(characterSelection)
-    localStorage.setItem("stored-characters", JSON.stringify(storedCharacters))
+    if(storedCharacters.length > 10){
+        alert("You already have 10 characters stored! Go to the storage section and delete some first!")
+    } else {
+        localStorage.setItem("playerCharacters", JSON.stringify(characterSelection))
+        storedCharacters.push(characterSelection)
+        localStorage.setItem("stored-characters", JSON.stringify(storedCharacters))
+        console.log(storedCharacters.length)
+    }
+    console.log(storedCharacters.length)
+
 }
 
 function storageFunction() {
