@@ -8,27 +8,39 @@
 </head>
 
 <body>
-    <!-- basically what's going to happen is there's going to be the body, display:flex and that the body will have flex-direction row, there's gonna be 3 
-    divs inside the body, left, center, right, and in the left it's going to have 2 containers: the top one shows the character the player chose to draft,
-    and the container below allows the player to select characters from all the characters in their storage. IN the center is going to be an image of "vs" icon
-    that will utilize classlist to make it enable as soon as the start button is clicked. ON the right side will simply be the bot's character that's going
-    to be displayed as soon as the start is clicked, same interface as the top container of the left hand side -->
     <div class = "left">
         <div id = "characterSelected">CHARACTER SELECTED HERE</div>
-        <div id = "characterSelection">CHARACTER SELECTION HERE</div>
+        <div id = "characterSelection">
+            <div id = "selectionRow1">
+                <button class = "selection 1">Character 1</button>
+                <button class = "selection 2">Character 2</button>
+                <button class = "selection 3">Character 3</button>
+                <button class = "selection 4">Character 4</button>
+                <button class = "selection 5">Character 5</button>
+            </div>
+            <div id = "selectionRow2">
+                <button class = "selection 6">Character 6</button>
+                <button class = "selection 7">Character 7</button>
+                <button class = "selection 8">Character 8</button>
+                <button class = "selection 9">Character 9</button>
+                <button class = "selection 10">Character 10</button>
+            </div>
+        </div>
     </div>
 
     <div class = "center">
         <img src = "../Misc/VS_Logo.png" alt = "VS icon" id = "vs-icon">
+        <button id = "start-game">START</button>
     </div>
 
     <div class = "right">
         <div id = "botSelected">BOT SELECTED GOES HERE</div>
-        <div id = "botSelection">BOT SELECTION GOES HERE</div>
     </div>
 
 
 
+    
+    
     <script src = 'duels.js'></script>
 </body>
 </html>
