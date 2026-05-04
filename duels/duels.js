@@ -71,4 +71,10 @@ medium.addEventListener("click", function(){
     choseDifficulty = true
 })
 
+hard.addEventListener("click", function(){
+    let hardIndex = Math.floor(Math.random() * legendaryCharacters.length)
+    botDraw = legendaryCharacters[hardIndex]
+    choseDifficulty = true
+})
+
 
