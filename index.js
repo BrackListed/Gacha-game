@@ -29,6 +29,10 @@ let characterStats = document.querySelector(".stats")
 let imgContainer = document.querySelector(".imagecontainer")
 let storedCharacters = JSON.parse(localStorage.getItem("stored-characters")) || []
 let characterSelection = null
+let storageEl = document.getElementById("character-storage")
+let startEl = document.getElementById("start-game")
+let battlesEl = document.getElementById("character-battles")
+let storeEl = document.getElementById("store-character")
 
 
 function getCharacter(){
@@ -54,13 +58,13 @@ function getCharacter(){
     characterStats.textContent = "Atk: " + characterSelection.Atk + " Def: "  + characterSelection.Def
 }
 
-
-function startFunction(){
+startEl.addEventListener("click", function(){
     imgContainer.innerHTML = ""
     getCharacter()
-}
+})
 
-function characterStorage(){
+
+storeEl.addEventListener("click", function(){
     if(storedCharacters.length >= 10){
         alert("You already have 10 characters stored! Go to the storage section and delete some first!")
     } else {
@@ -69,14 +73,20 @@ function characterStorage(){
         localStorage.setItem("stored-characters", JSON.stringify(storedCharacters))
     }
 
-}
+})
 
-function storageFunction() {
+
+
+storageEl.addEventListener("click", function(){
     window.location.href = "storage/storage.html";
-}
+})
 
-function battleFunction() {
+
+
+
+battlesEl.addEventListener("click", function(){
     window.location.href = "duels/duels.html";
-}
+})
 
-console.log(storedCharacters)
+
+

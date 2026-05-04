@@ -6,12 +6,57 @@
     <title>Gacha Game: Character Duels</title>
     <link href = 'duels.css' rel = 'stylesheet'>
 </head>
+
 <body>
-    
+    <div class = "left">
+        <div id = "characterSelected">
+            <div id = "player-health">
+                <progress></progress>
+            </div>
+            <div id = "playerimg-placeholder"></div>
+        </div>
+        <div id = "characterSelection">
+            <div id = "selectionRow1">
+                <button class = "selection 1 disabled">Character 1</button>
+                <button class = "selection 2 disabled">Character 2</button>
+                <button class = "selection 3 disabled">Character 3</button>
+                <button class = "selection 4 disabled">Character 4</button>
+                <button class = "selection 5 disabled">Character 5</button>
+            </div>
+            <div id = "selectionRow2">
+                <button class = "selection 6 disabled">Character 6</button>
+                <button class = "selection 7 disabled">Character 7</button>
+                <button class = "selection 8 disabled">Character 8</button>
+                <button class = "selection 9 disabled">Character 9</button>
+                <button class = "selection 10 disabled">Character 10</button>
+            </div>
+        </div>
+    </div>
+
+    <div class = "center">
+        <img src = "../Misc/VS_Logo.png" alt = "VS icon" id = "vs-icon">
+        <button id = "start-game">START</button>
+    </div>
+
+    <div class = "right">
+        <div id = "botSelected">
+            <div id = "bot-health">
+                <progress></progress>
+            </div>
+            <div id = "botimg-placeholder"></div>
+        </div>
+        <div id = "difficulties">
+            <button id = "easy">EASY</button>
+            <button id = "medium">MEDIUM</button>
+            <button id = "hard">HARD</button>
+            <button id = "impossible">IMPOSSIBLE</button>
+        </div>
+    </div>
+
+
 
     
-
-
+    
     <script src = 'duels.js'></script>
 </body>
 </html>
