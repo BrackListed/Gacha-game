@@ -77,4 +77,10 @@ hard.addEventListener("click", function(){
     choseDifficulty = true
 })
 
+impossible.addEventListener("click", function(){
+    let impossibleIndex = Math.floor(Math.random() * mythicalCharacters.length)
+    botDraw = mythicalCharacters[impossibleIndex]
+    choseDifficulty = true
+})
+
 
