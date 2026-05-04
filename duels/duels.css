@@ -10,4 +10,55 @@ body{
     background-attachment: fixed;
     margin: 0;
     height: 100vh;
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
 }
+
+.left, .right{
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+#characterSelected, #characterSelection, #botSelection, #botSelected{
+    background-color: gray;
+    width: 45rem;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px); 
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+    text-align: center;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+
+}
+
+
+#characterSelected, #botSelected{
+    height: 45rem
+}
+
+#characterSelection, #botSelection{
+    height: 15rem
+}
+
+.center{
+    display: flex;
+    width: 10rem;
+    height: 10rem;
+    
+}
+
+.center img{
+    width: 100%;
+    height: 100%;
+}
+
+
+

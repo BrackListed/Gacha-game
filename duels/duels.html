@@ -6,10 +6,27 @@
     <title>Gacha Game: Character Duels</title>
     <link href = 'duels.css' rel = 'stylesheet'>
 </head>
-<body>
-    
 
-    
+<body>
+    <!-- basically what's going to happen is there's going to be the body, display:flex and that the body will have flex-direction row, there's gonna be 3 
+    divs inside the body, left, center, right, and in the left it's going to have 2 containers: the top one shows the character the player chose to draft,
+    and the container below allows the player to select characters from all the characters in their storage. IN the center is going to be an image of "vs" icon
+    that will utilize classlist to make it enable as soon as the start button is clicked. ON the right side will simply be the bot's character that's going
+    to be displayed as soon as the start is clicked, same interface as the top container of the left hand side -->
+    <div class = "left">
+        <div id = "characterSelected">CHARACTER SELECTED HERE</div>
+        <div id = "characterSelection">CHARACTER SELECTION HERE</div>
+    </div>
+
+    <div class = "center">
+        <img src = "../Misc/VS_Logo.png" alt = "VS icon" id = "vs-icon">
+    </div>
+
+    <div class = "right">
+        <div id = "botSelected">BOT SELECTED GOES HERE</div>
+        <div id = "botSelection">BOT SELECTION GOES HERE</div>
+    </div>
+
 
 
     <script src = 'duels.js'></script>
