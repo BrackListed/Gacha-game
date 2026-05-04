@@ -8,6 +8,8 @@ let medium = document.getElementById("medium")
 let hard = document.getElementById("hard")
 let impossible = document.getElementById("impossible")
 let botDraw = null
+let choseDifficulty = false
+let botSelected = document.getElementById("botSelected")
 let commonCharacters = [
     {name: "Takemichi Hanagaki", Atk: 10, Def: 10, img: "characters/Common/Takemichi_Hanagaki.png"},
     {name: "Haruka Sakura", Atk: 10, Def: 10, img: "characters/Common/Haruka_Sakura.png"},
@@ -48,11 +50,22 @@ selectionEl.forEach((chosableCharacters, index) => {
 });
 
 startGame.addEventListener("click", function(){
-    console.log("Heya!")
+    if(choseDifficulty === true){
+        console.log(selectedCharacter)
+        console.log(botDraw)
+        let botImage = document.createElement("img")
+        botImage.src = "../" + botDraw.img
+        botSelected.appendChild(botImage)
+    } else{
+        alert("Choose a difficulty!")
+    }
 })
 
 easy.addEventListener("click", function(){
-    console.log("easy mode")
+    let easyIndex = Math.floor(Math.random() * commonCharacters.length)
+    botDraw = commonCharacters[easyIndex]
+    choseDifficulty = true
+    console.log(choseDifficulty)
 })
 
 console.log("oioi")

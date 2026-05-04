@@ -50,6 +50,8 @@ body{
 }
 
 .right #botSelected{
+    display: flex;
+    justify-content: center;
     height: 93%
 }
 
@@ -83,6 +85,7 @@ body{
     display: flex;
     justify-content: center;
 }
+
 
 #characterSelection{
     height: 15rem;
