@@ -39,12 +39,18 @@ body{
 
 }
 
+.left #characterSelected img{
+    height: 100%
+}
+
 .right #botSelected{
     height: 53rem
 }
 
 #characterSelected, #botSelected{
-    height: 40rem
+    height: 40rem;
+    display: flex;
+    justify-content: center;
 }
 
 #characterSelection{
