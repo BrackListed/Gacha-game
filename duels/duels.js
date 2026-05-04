@@ -1,20 +1,60 @@
 let storedCharacters = JSON.parse(localStorage.getItem("stored-characters")) || []
 let selectionEl = document.querySelectorAll(".selection")
 let selectedEl = document.getElementById("characterSelected")
+let selectedCharacter = null
+let startGame = document.getElementById("start-game")
+let easy = document.getElementById("easy")
+let medium = document.getElementById("medium")
+let hard = document.getElementById("hard")
+let impossible = document.getElementById("impossible")
+let botDraw = null
+let commonCharacters = [
+    {name: "Takemichi Hanagaki", Atk: 10, Def: 10, img: "characters/Common/Takemichi_Hanagaki.png"},
+    {name: "Haruka Sakura", Atk: 10, Def: 10, img: "characters/Common/Haruka_Sakura.png"},
+]
 
+let rareCharacters = [
+    {name: "Tanjiro Kamado",  Atk: 60, Def: 50, img: "characters/Rare/Tanjiro_Kamado.png"},
+    {name: "Gabimaru the Hollow", Atk: 30, Def: 40, img: "characters/Rare/Gabimaru.png"},
+    {name: "Yuji Itadori", Atk: 50, Def: 50, img: "characters/Rare/Yuji_Itadori.png"},
+    {name: "Alucard Hellsing", Atk: 40, Def: 40, img: "characters/Rare/Alucard_Hellsing.png"},
+]
+
+let legendaryCharacters = [
+    {name: "Izuku Midoriya", Atk: 100, Def: 100, img: "characters/Legendary/Izuku_Midoriya.png"},
+    {name: "Monkey D. Luffy", Atk: 110, Def: 120, img: "characters/Legendary/Luffy.jpg"},
+]
+
+let mythicalCharacters = [
+    {name: "Giorno Giovanna", Atk: 80, Def: 999, img: "characters/Mythical/Giorno.png"},
+    {name: "Saitama", Atk: 500, Def: 500, img: "characters/Mythical/Saitama.png"},
+]
 
 selectionEl.forEach((chosableCharacters, index) => {
-    console.log(chosableCharacters)
+    //disable the button if it ain't being used up by a character
     chosableCharacters.addEventListener("click", function(){
         selectedEl.innerHTML = ""
-        let chosenCharacter = document.createElement("img")
-        chosenCharacter.src = "../" + storedCharacters[index].img
-        selectedEl.appendChild(chosenCharacter)
+        let chosenCharacterimg = document.createElement("img")
+        chosenCharacterimg.src = "../" + storedCharacters[index].img
+        selectedEl.appendChild(chosenCharacterimg)
+        selectedCharacter = storedCharacters[index]
     })
-    chosableCharacters.textContent = storedCharacters[index].name
+    if(storedCharacters[index]){
+        chosableCharacters.textContent = storedCharacters[index].name
+        chosableCharacters.classList.remove("disabled")
+    } else{
+        chosableCharacters.disabled = true;
+    }
 });
 
+startGame.addEventListener("click", function(){
+    console.log("Heya!")
+})
+
+easy.addEventListener("click", function(){
+    console.log("easy mode")
+})
+
+console.log("oioi")
 
 
-//I've made it so that the buttons now are able to well display the characters, but that's only display. THe buttons need to be clicked and when clicked 
-//invoke and select the character then append it on chosen character
