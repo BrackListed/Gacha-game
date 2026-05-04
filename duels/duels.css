@@ -45,7 +45,8 @@ body{
 
 }
 
-.left #characterSelected img{
+
+#playerimg-placeholder img{
     height: 100%
 }
 
@@ -83,9 +84,36 @@ body{
 #characterSelected, #botSelected{
     height: 40rem;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
+#characterSelected #playerimg-placeholder{
+    display: flex;
+    justify-content: center;
+    height: 90%;
+}
+
+#characterSelected #player-health{
+    display: flex;
+    height: 10%;
+}
+
+
+#botSelected #bot-health{
+    display: flex;
+    height: 10%;
+}
+
+#botSelected #botimg-placeholder{
+    display: flex;
+    justify-content: center;
+    height: 90%
+}
+
+#botimg-placeholder img{
+    height: 100%
+}
 
 #characterSelection{
     height: 15rem;

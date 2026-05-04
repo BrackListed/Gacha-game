@@ -10,6 +10,8 @@ let impossible = document.getElementById("impossible")
 let botDraw = null
 let choseDifficulty = false
 let botSelected = document.getElementById("botSelected")
+let botimgPlaceholder = document.getElementById("botimg-placeholder")
+let playerimgPlaceholder = document.getElementById("playerimg-placeholder")
 let commonCharacters = [
     {name: "Takemichi Hanagaki", Atk: 10, Def: 10, img: "characters/Common/Takemichi_Hanagaki.png"},
     {name: "Haruka Sakura", Atk: 10, Def: 10, img: "characters/Common/Haruka_Sakura.png"},
@@ -34,10 +36,10 @@ let mythicalCharacters = [
 
 selectionEl.forEach((chosableCharacters, index) => {
     chosableCharacters.addEventListener("click", function(){
-        selectedEl.innerHTML = ""
+        playerimgPlaceholder.innerHTML = ""
         let chosenCharacterimg = document.createElement("img")
         chosenCharacterimg.src = "../" + storedCharacters[index].img
-        selectedEl.appendChild(chosenCharacterimg)
+        playerimgPlaceholder.appendChild(chosenCharacterimg)
         selectedCharacter = storedCharacters[index]
     })
     if(storedCharacters[index]){
@@ -50,10 +52,13 @@ selectionEl.forEach((chosableCharacters, index) => {
 
 startGame.addEventListener("click", function(){
     if(choseDifficulty === true){
-        botSelected.innerHTML = ""
+        botimgPlaceholder.innerHTML = ""
         let botImage = document.createElement("img")
+        botImage.id = "bot-img"
         botImage.src = "../" + botDraw.img
-        botSelected.appendChild(botImage)
+        botimgPlaceholder.appendChild(botImage)
+        //use an if tag that goes like if this exists then go if it does not create one
+        //player  attacks first, player's dmg subtracts bot hp, bot attacks, bot's dmg subtracts player hp,  do this whiile either the player or bot lives
     } else{
         alert("Choose a difficulty!")
     }
