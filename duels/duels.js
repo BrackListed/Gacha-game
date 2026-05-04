@@ -33,7 +33,6 @@ let mythicalCharacters = [
 ]
 
 selectionEl.forEach((chosableCharacters, index) => {
-    //disable the button if it ain't being used up by a character
     chosableCharacters.addEventListener("click", function(){
         selectedEl.innerHTML = ""
         let chosenCharacterimg = document.createElement("img")
@@ -51,8 +50,7 @@ selectionEl.forEach((chosableCharacters, index) => {
 
 startGame.addEventListener("click", function(){
     if(choseDifficulty === true){
-        console.log(selectedCharacter)
-        console.log(botDraw)
+        botSelected.innerHTML = ""
         let botImage = document.createElement("img")
         botImage.src = "../" + botDraw.img
         botSelected.appendChild(botImage)
@@ -65,9 +63,12 @@ easy.addEventListener("click", function(){
     let easyIndex = Math.floor(Math.random() * commonCharacters.length)
     botDraw = commonCharacters[easyIndex]
     choseDifficulty = true
-    console.log(choseDifficulty)
 })
 
-console.log("oioi")
+medium.addEventListener("click", function(){
+    let mediumIndex = Math.floor(Math.random() * rareCharacters.length)
+    botDraw = rareCharacters[mediumIndex]
+    choseDifficulty = true
+})
 
 
