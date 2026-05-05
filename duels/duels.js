@@ -20,6 +20,9 @@ let botAtk = null
 let botDef = null
 let botHealth = document.getElementById("bot-health")
 let playerHealth = document.getElementById("player-health")
+let winCount = parseInt(localStorage.getItem("win-count")) || 0
+let lossCount = parseInt(localStorage.getItem("loss-count")) || 0
+let playerStats = document.getElementById("player-stats")
 
 const delay = (ms) => new Promise(res => setTimeout(res, ms))
 let commonCharacters = [
@@ -44,6 +47,7 @@ let mythicalCharacters = [
     {name: "Saitama", Atk: 500, Def: 500, img: "characters/Mythical/Saitama.png"},
 ]
 
+playerStats.textContent = "Wins: " + winCount + " Losses: " + lossCount
 selectionEl.forEach((chosableCharacters, index) => {
     chosableCharacters.addEventListener("click", function(){
         playerimgPlaceholder.innerHTML = ""
@@ -72,14 +76,15 @@ startGame.addEventListener("click", function(){
         botHealth.max = botDraw.Def
         playerHealth.max = selectedCharacter.Def
         renderGame()
+        playerStats.textContent = "Wins: " + winCount + " Losses: " + lossCount
     } else{
         alert("Choose a difficulty and a character!")
     }
+
 })
 
 
 async function renderGame(){
-    //make it so that once the opposing or ur character is dead, it can't do any more damage
     await delay(3000)
     playerAtk = selectedCharacter.Atk
     playerDef = selectedCharacter.Def
@@ -101,15 +106,19 @@ function winChecktest(){
         alert("You lost")
         botAtk = 0
         playerAtk = 0
+        lossCount += 1
     } else if(botDef <= 0){
         alert("You win!")
         botAtk = 0
         playerAtk = 0
+        winCount += 1
     } else if(playerDef <= 0 && botDef <= 0){
         alert("Draw!")
         botAtk = 0
         playerAtk = 0
     }
+    JSON.stringify(localStorage.setItem("win-count", winCount))
+    JSON.stringify(localStorage.setItem("loss-count", lossCount))
 
 }
 
