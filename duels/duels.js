@@ -20,6 +20,8 @@ let botAtk = null
 let botDef = null
 let botHealth = document.getElementById("bot-health")
 let playerHealth = document.getElementById("player-health")
+
+const delay = (ms) => new Promise(res => setTimeout(res, ms))
 let commonCharacters = [
     {name: "Takemichi Hanagaki", Atk: 10, Def: 10, img: "characters/Common/Takemichi_Hanagaki.png"},
     {name: "Haruka Sakura", Atk: 10, Def: 10, img: "characters/Common/Haruka_Sakura.png"},
@@ -75,25 +77,40 @@ startGame.addEventListener("click", function(){
     }
 })
 
-function renderGame(){
-    let playerAtk = selectedCharacter.Atk
-    let playerDef = selectedCharacter.Def
-    let botAtk = botDraw.Atk
-    let botDef = botDraw.Def
+
+async function renderGame(){
+    //make it so that once the opposing or ur character is dead, it can't do any more damage
+    await delay(3000)
+    playerAtk = selectedCharacter.Atk
+    playerDef = selectedCharacter.Def
+    botAtk = botDraw.Atk
+    botDef = botDraw.Def
     while(playerDef > 0 && botDef > 0){
+        await delay(1000)
         botDef = botDef - playerAtk
-        playerDef = playerDef - botAtk
         botHealth.value = botDef
+        winChecktest()
+        await delay(1000)
+        playerDef = playerDef - botAtk
         playerHealth.value = playerDef
-        if(playerDef <= 0){
-            alert("You lost")
-        } else if(botDef <= 0){
-            alert("You win!")
-        }
     }
 }
 
-function winnerChecker(){
+function winChecktest(){
+    if(playerDef <= 0){
+        alert("You lost")
+        botAtk = 0
+        playerAtk = 0
+    } else if(botDef <= 0){
+        alert("You win!")
+        botAtk = 0
+        playerAtk = 0
+    } else if(playerDef <= 0 && botDef <= 0){
+        alert("Draw!")
+        botAtk = 0
+        playerAtk = 0
+    }
+
 }
 
 easy.addEventListener("click", function(){
