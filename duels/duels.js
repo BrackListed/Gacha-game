@@ -14,6 +14,12 @@ let botimgPlaceholder = document.getElementById("botimg-placeholder")
 let playerimgPlaceholder = document.getElementById("playerimg-placeholder")
 let vsIcon = document.getElementById("vs-icon")
 let hasCharacter = false
+let playerAtk = null
+let playerDef = null
+let botAtk = null
+let botDef = null
+let botHealth = document.getElementById("bot-health")
+let playerHealth = document.getElementById("player-health")
 let commonCharacters = [
     {name: "Takemichi Hanagaki", Atk: 10, Def: 10, img: "characters/Common/Takemichi_Hanagaki.png"},
     {name: "Haruka Sakura", Atk: 10, Def: 10, img: "characters/Common/Haruka_Sakura.png"},
@@ -61,11 +67,40 @@ startGame.addEventListener("click", function(){
         botImage.id = "bot-img"
         botImage.src = "../" + botDraw.img
         botimgPlaceholder.appendChild(botImage)
+        botHealth.max = botDraw.Def
+        playerHealth.max = selectedCharacter.Def
+        renderGame()
+        //selectedCharacter = player's character
+        //botDraw = bot's character
+
         //player  attacks first, player's dmg subtracts bot hp, bot attacks, bot's dmg subtracts player hp,  do this whiile either the player or bot lives
     } else{
         alert("Choose a difficulty and a character!")
     }
 })
+
+function renderGame(){
+    let playerAtk = selectedCharacter.Atk
+    let playerDef = selectedCharacter.Def
+    let botAtk = botDraw.Atk
+    let botDef = botDraw.Def
+    while(playerDef > 0 && botDef > 0){
+        //what this does is as long as player def is greater than 0 OR bot def is greater than 0, keep 
+        //killing each other. We don't want that, as soon as one value becomes false the rest should become false
+        //WE USE AND NOT OR
+        botDef = botDef - playerAtk
+        playerDef = playerDef - botAtk
+        botHealth.value = botDef
+        playerHealth.value = playerDef
+        console.log(playerDef)
+        console.log(botDef)
+    }
+    //how about creating a while loop taht while playerdef and botdef are still not null, keep the cycle going
+    //wherein player does dmg, bot takes dmg, bot does dmg, player takes dmg
+}
+
+function winnerChecker(){
+}
 
 easy.addEventListener("click", function(){
     let easyIndex = Math.floor(Math.random() * commonCharacters.length)
