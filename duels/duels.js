@@ -12,6 +12,7 @@ let choseDifficulty = false
 let botSelected = document.getElementById("botSelected")
 let botimgPlaceholder = document.getElementById("botimg-placeholder")
 let playerimgPlaceholder = document.getElementById("playerimg-placeholder")
+let vsIcon = document.getElementById("vs-icon")
 let commonCharacters = [
     {name: "Takemichi Hanagaki", Atk: 10, Def: 10, img: "characters/Common/Takemichi_Hanagaki.png"},
     {name: "Haruka Sakura", Atk: 10, Def: 10, img: "characters/Common/Haruka_Sakura.png"},
@@ -52,12 +53,12 @@ selectionEl.forEach((chosableCharacters, index) => {
 
 startGame.addEventListener("click", function(){
     if(choseDifficulty === true){
+        vsIcon.classList.remove("disabled")
         botimgPlaceholder.innerHTML = ""
         let botImage = document.createElement("img")
         botImage.id = "bot-img"
         botImage.src = "../" + botDraw.img
         botimgPlaceholder.appendChild(botImage)
-        //use an if tag that goes like if this exists then go if it does not create one
         //player  attacks first, player's dmg subtracts bot hp, bot attacks, bot's dmg subtracts player hp,  do this whiile either the player or bot lives
     } else{
         alert("Choose a difficulty!")
@@ -89,3 +90,7 @@ impossible.addEventListener("click", function(){
 })
 
 
+//we got 2 values for hp, max and value
+//We can set max to the def of the player and bot's character
+//It's value will be the same as the max, however we subtract from the max with the bot's attack the moment 
+//start game is clicked

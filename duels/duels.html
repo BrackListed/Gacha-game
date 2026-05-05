@@ -10,8 +10,8 @@
 <body>
     <div class = "left">
         <div id = "characterSelected">
-            <div id = "player-health">
-                <progress></progress>
+            <div id = "player-health-el">
+                <progress value = "1000" max = "1000" id = "player-health"></progress>
             </div>
             <div id = "playerimg-placeholder"></div>
         </div>
@@ -34,14 +34,14 @@
     </div>
 
     <div class = "center">
-        <img src = "../Misc/VS_Logo.png" alt = "VS icon" id = "vs-icon">
+        <img src = "../Misc/VS_Logo.png" alt = "VS icon" id = "vs-icon" class = "disabled">
         <button id = "start-game">START</button>
     </div>
 
     <div class = "right">
         <div id = "botSelected">
-            <div id = "bot-health">
-                <progress></progress>
+            <div id = "bot-health-el">
+                <progress value = "1000" max = "1000" id = "bot-health"></progress>
             </div>
             <div id = "botimg-placeholder"></div>
         </div>
