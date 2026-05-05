@@ -70,10 +70,6 @@ startGame.addEventListener("click", function(){
         botHealth.max = botDraw.Def
         playerHealth.max = selectedCharacter.Def
         renderGame()
-        //selectedCharacter = player's character
-        //botDraw = bot's character
-
-        //player  attacks first, player's dmg subtracts bot hp, bot attacks, bot's dmg subtracts player hp,  do this whiile either the player or bot lives
     } else{
         alert("Choose a difficulty and a character!")
     }
@@ -85,18 +81,16 @@ function renderGame(){
     let botAtk = botDraw.Atk
     let botDef = botDraw.Def
     while(playerDef > 0 && botDef > 0){
-        //what this does is as long as player def is greater than 0 OR bot def is greater than 0, keep 
-        //killing each other. We don't want that, as soon as one value becomes false the rest should become false
-        //WE USE AND NOT OR
         botDef = botDef - playerAtk
         playerDef = playerDef - botAtk
         botHealth.value = botDef
         playerHealth.value = playerDef
-        console.log(playerDef)
-        console.log(botDef)
+        if(playerDef <= 0){
+            alert("You lost")
+        } else if(botDef <= 0){
+            alert("You win!")
+        }
     }
-    //how about creating a while loop taht while playerdef and botdef are still not null, keep the cycle going
-    //wherein player does dmg, bot takes dmg, bot does dmg, player takes dmg
 }
 
 function winnerChecker(){
@@ -126,8 +120,3 @@ impossible.addEventListener("click", function(){
     choseDifficulty = true
 })
 
-
-//we got 2 values for hp, max and value
-//We can set max to the def of the player and bot's character
-//It's value will be the same as the max, however we subtract from the max with the bot's attack the moment 
-//start game is clicked
