@@ -94,11 +94,12 @@ async function renderGame(){
         await delay(1000)
         botDef = botDef - playerAtk
         botHealth.value = botDef
-        winChecktest()
+        if(botDef <= 0) break
         await delay(1000)
         playerDef = playerDef - botAtk
         playerHealth.value = playerDef
     }
+    winChecktest()
 }
 
 function winChecktest(){
@@ -107,42 +108,62 @@ function winChecktest(){
         botAtk = 0
         playerAtk = 0
         lossCount += 1
+        refreshGame()
     } else if(botDef <= 0){
         alert("You win!")
         botAtk = 0
         playerAtk = 0
         winCount += 1
+        refreshGame()
     } else if(playerDef <= 0 && botDef <= 0){
         alert("Draw!")
         botAtk = 0
         playerAtk = 0
+        refreshGame()
     }
     JSON.stringify(localStorage.setItem("win-count", winCount))
     JSON.stringify(localStorage.setItem("loss-count", lossCount))
 
 }
 
+function refreshGame(){
+    //need to set everything back, the player drawn and the draw of the bot the rest should naturally follow.
+    //let the bot draw again, and the player just be the same, it's manual anyway
+    botDraw = null
+    playerimgPlaceholder.innerHTML = ""
+    botimgPlaceholder.innerHTML = ""
+    hasCharacter = false
+    choseDifficulty = false
+}
 easy.addEventListener("click", function(){
     let easyIndex = Math.floor(Math.random() * commonCharacters.length)
     botDraw = commonCharacters[easyIndex]
     choseDifficulty = true
+    botHealth.value = 1000
+    playerHealth.value = 1000
 })
 
 medium.addEventListener("click", function(){
     let mediumIndex = Math.floor(Math.random() * rareCharacters.length)
     botDraw = rareCharacters[mediumIndex]
     choseDifficulty = true
+    botHealth.value = 1000
+    playerHealth.value = 1000
 })
 
 hard.addEventListener("click", function(){
     let hardIndex = Math.floor(Math.random() * legendaryCharacters.length)
     botDraw = legendaryCharacters[hardIndex]
     choseDifficulty = true
+    botHealth.value = 1000
+    playerHealth.value = 1000
 })
 
 impossible.addEventListener("click", function(){
     let impossibleIndex = Math.floor(Math.random() * mythicalCharacters.length)
     botDraw = mythicalCharacters[impossibleIndex]
     choseDifficulty = true
+    botHealth.value = 1000
+    playerHealth.value = 1000
 })
 
