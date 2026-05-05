@@ -23,6 +23,7 @@ let playerHealth = document.getElementById("player-health")
 let winCount = parseInt(localStorage.getItem("win-count")) || 0
 let lossCount = parseInt(localStorage.getItem("loss-count")) || 0
 let playerStats = document.getElementById("player-stats")
+let startedGame = false
 
 const delay = (ms) => new Promise(res => setTimeout(res, ms))
 let commonCharacters = [
@@ -50,12 +51,16 @@ let mythicalCharacters = [
 playerStats.textContent = "Wins: " + winCount + " Losses: " + lossCount
 selectionEl.forEach((chosableCharacters, index) => {
     chosableCharacters.addEventListener("click", function(){
-        playerimgPlaceholder.innerHTML = ""
-        let chosenCharacterimg = document.createElement("img")
-        chosenCharacterimg.src = "../" + storedCharacters[index].img
-        playerimgPlaceholder.appendChild(chosenCharacterimg)
-        selectedCharacter = storedCharacters[index]
-        hasCharacter = true
+        if(hasCharacter === true && startedGame === true){
+            alert("You already have a character!")
+        } else{
+             playerimgPlaceholder.innerHTML = ""
+            let chosenCharacterimg = document.createElement("img")
+            chosenCharacterimg.src = "../" + storedCharacters[index].img
+            playerimgPlaceholder.appendChild(chosenCharacterimg)
+            selectedCharacter = storedCharacters[index]
+            hasCharacter = true
+        }
     })
     if(storedCharacters[index]){
         chosableCharacters.textContent = storedCharacters[index].name
@@ -80,7 +85,7 @@ startGame.addEventListener("click", function(){
     } else{
         alert("Choose a difficulty and a character!")
     }
-
+    startedGame = true
 })
 
 
