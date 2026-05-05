@@ -186,3 +186,22 @@ button:hover{
     height: 70%;
 }
 
+progress {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 300px;
+    height: 24px;
+    border-radius: 12px;
+    border: 2px solid #222;
+    overflow: hidden;
+}
+
+progress::-webkit-progress-bar {
+    background-color: #1a1a1a;
+}
+
+progress::-webkit-progress-value {
+    background: linear-gradient(90deg, #51ff44, #00ff00);
+    border-radius: 12px;
+    transition: width 0.5s ease;
+}
