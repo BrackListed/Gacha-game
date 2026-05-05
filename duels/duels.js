@@ -13,6 +13,7 @@ let botSelected = document.getElementById("botSelected")
 let botimgPlaceholder = document.getElementById("botimg-placeholder")
 let playerimgPlaceholder = document.getElementById("playerimg-placeholder")
 let vsIcon = document.getElementById("vs-icon")
+let hasCharacter = false
 let commonCharacters = [
     {name: "Takemichi Hanagaki", Atk: 10, Def: 10, img: "characters/Common/Takemichi_Hanagaki.png"},
     {name: "Haruka Sakura", Atk: 10, Def: 10, img: "characters/Common/Haruka_Sakura.png"},
@@ -42,6 +43,7 @@ selectionEl.forEach((chosableCharacters, index) => {
         chosenCharacterimg.src = "../" + storedCharacters[index].img
         playerimgPlaceholder.appendChild(chosenCharacterimg)
         selectedCharacter = storedCharacters[index]
+        hasCharacter = true
     })
     if(storedCharacters[index]){
         chosableCharacters.textContent = storedCharacters[index].name
@@ -52,7 +54,7 @@ selectionEl.forEach((chosableCharacters, index) => {
 });
 
 startGame.addEventListener("click", function(){
-    if(choseDifficulty === true){
+    if(choseDifficulty === true && hasCharacter === true){
         vsIcon.classList.remove("disabled")
         botimgPlaceholder.innerHTML = ""
         let botImage = document.createElement("img")
@@ -61,7 +63,7 @@ startGame.addEventListener("click", function(){
         botimgPlaceholder.appendChild(botImage)
         //player  attacks first, player's dmg subtracts bot hp, bot attacks, bot's dmg subtracts player hp,  do this whiile either the player or bot lives
     } else{
-        alert("Choose a difficulty!")
+        alert("Choose a difficulty and a character!")
     }
 })
 
