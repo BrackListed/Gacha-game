@@ -173,6 +173,7 @@ button:hover{
     width: 10rem;
     height: 15rem;
     flex-direction: column;
+    gap: 30px;
 }
 
 .center button{
@@ -186,3 +187,34 @@ button:hover{
     height: 70%;
 }
 
+.center #player-stats{
+    font-family: 'Impact', sans-serif;
+    font-size: 18px;
+    color: white;
+    text-shadow: 2px 2px 4px black;
+    letter-spacing: 2px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+progress {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 300px;
+    height: 24px;
+    border-radius: 12px;
+    border: 2px solid #222;
+    overflow: hidden;
+}
+
+progress::-webkit-progress-bar {
+    background-color: #1a1a1a;
+}
+
+progress::-webkit-progress-value {
+    background: linear-gradient(90deg, #51ff44, #00ff00);
+    border-radius: 12px;
+    transition: width 0.5s ease;
+}

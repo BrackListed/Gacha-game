@@ -20,6 +20,12 @@ let botAtk = null
 let botDef = null
 let botHealth = document.getElementById("bot-health")
 let playerHealth = document.getElementById("player-health")
+let winCount = parseInt(localStorage.getItem("win-count")) || 0
+let lossCount = parseInt(localStorage.getItem("loss-count")) || 0
+let playerStats = document.getElementById("player-stats")
+let startedGame = false
+
+const delay = (ms) => new Promise(res => setTimeout(res, ms))
 let commonCharacters = [
     {name: "Takemichi Hanagaki", Atk: 10, Def: 10, img: "characters/Common/Takemichi_Hanagaki.png"},
     {name: "Haruka Sakura", Atk: 10, Def: 10, img: "characters/Common/Haruka_Sakura.png"},
@@ -42,14 +48,19 @@ let mythicalCharacters = [
     {name: "Saitama", Atk: 500, Def: 500, img: "characters/Mythical/Saitama.png"},
 ]
 
+playerStats.textContent = "Wins: " + winCount + " Losses: " + lossCount
 selectionEl.forEach((chosableCharacters, index) => {
     chosableCharacters.addEventListener("click", function(){
-        playerimgPlaceholder.innerHTML = ""
-        let chosenCharacterimg = document.createElement("img")
-        chosenCharacterimg.src = "../" + storedCharacters[index].img
-        playerimgPlaceholder.appendChild(chosenCharacterimg)
-        selectedCharacter = storedCharacters[index]
-        hasCharacter = true
+        if(hasCharacter === true && startedGame === true){
+            alert("You already have a character!")
+        } else{
+             playerimgPlaceholder.innerHTML = ""
+            let chosenCharacterimg = document.createElement("img")
+            chosenCharacterimg.src = "../" + storedCharacters[index].img
+            playerimgPlaceholder.appendChild(chosenCharacterimg)
+            selectedCharacter = storedCharacters[index]
+            hasCharacter = true
+        }
     })
     if(storedCharacters[index]){
         chosableCharacters.textContent = storedCharacters[index].name
@@ -70,64 +81,94 @@ startGame.addEventListener("click", function(){
         botHealth.max = botDraw.Def
         playerHealth.max = selectedCharacter.Def
         renderGame()
-        //selectedCharacter = player's character
-        //botDraw = bot's character
-
-        //player  attacks first, player's dmg subtracts bot hp, bot attacks, bot's dmg subtracts player hp,  do this whiile either the player or bot lives
+        playerStats.textContent = "Wins: " + winCount + " Losses: " + lossCount
     } else{
         alert("Choose a difficulty and a character!")
     }
+    startedGame = true
 })
 
-function renderGame(){
-    let playerAtk = selectedCharacter.Atk
-    let playerDef = selectedCharacter.Def
-    let botAtk = botDraw.Atk
-    let botDef = botDraw.Def
+
+async function renderGame(){
+    await delay(3000)
+    playerAtk = selectedCharacter.Atk
+    playerDef = selectedCharacter.Def
+    botAtk = botDraw.Atk
+    botDef = botDraw.Def
     while(playerDef > 0 && botDef > 0){
-        //what this does is as long as player def is greater than 0 OR bot def is greater than 0, keep 
-        //killing each other. We don't want that, as soon as one value becomes false the rest should become false
-        //WE USE AND NOT OR
+        await delay(1000)
         botDef = botDef - playerAtk
-        playerDef = playerDef - botAtk
         botHealth.value = botDef
+        if(botDef <= 0) break
+        await delay(1000)
+        playerDef = playerDef - botAtk
         playerHealth.value = playerDef
-        console.log(playerDef)
-        console.log(botDef)
     }
-    //how about creating a while loop taht while playerdef and botdef are still not null, keep the cycle going
-    //wherein player does dmg, bot takes dmg, bot does dmg, player takes dmg
+    winChecktest()
 }
 
-function winnerChecker(){
+function winChecktest(){
+    if(playerDef <= 0){
+        alert("You lost")
+        botAtk = 0
+        playerAtk = 0
+        lossCount += 1
+        refreshGame()
+    } else if(botDef <= 0){
+        alert("You win!")
+        botAtk = 0
+        playerAtk = 0
+        winCount += 1
+        refreshGame()
+    } else if(playerDef <= 0 && botDef <= 0){
+        alert("Draw!")
+        botAtk = 0
+        playerAtk = 0
+        refreshGame()
+    }
+    JSON.stringify(localStorage.setItem("win-count", winCount))
+    JSON.stringify(localStorage.setItem("loss-count", lossCount))
+
 }
 
+function refreshGame(){
+    //need to set everything back, the player drawn and the draw of the bot the rest should naturally follow.
+    //let the bot draw again, and the player just be the same, it's manual anyway
+    botDraw = null
+    playerimgPlaceholder.innerHTML = ""
+    botimgPlaceholder.innerHTML = ""
+    hasCharacter = false
+    choseDifficulty = false
+}
 easy.addEventListener("click", function(){
     let easyIndex = Math.floor(Math.random() * commonCharacters.length)
     botDraw = commonCharacters[easyIndex]
     choseDifficulty = true
+    botHealth.value = 1000
+    playerHealth.value = 1000
 })
 
 medium.addEventListener("click", function(){
     let mediumIndex = Math.floor(Math.random() * rareCharacters.length)
     botDraw = rareCharacters[mediumIndex]
     choseDifficulty = true
+    botHealth.value = 1000
+    playerHealth.value = 1000
 })
 
 hard.addEventListener("click", function(){
     let hardIndex = Math.floor(Math.random() * legendaryCharacters.length)
     botDraw = legendaryCharacters[hardIndex]
     choseDifficulty = true
+    botHealth.value = 1000
+    playerHealth.value = 1000
 })
 
 impossible.addEventListener("click", function(){
     let impossibleIndex = Math.floor(Math.random() * mythicalCharacters.length)
     botDraw = mythicalCharacters[impossibleIndex]
     choseDifficulty = true
+    botHealth.value = 1000
+    playerHealth.value = 1000
 })
 
-
-//we got 2 values for hp, max and value
-//We can set max to the def of the player and bot's character
-//It's value will be the same as the max, however we subtract from the max with the bot's attack the moment 
-//start game is clicked
