@@ -1,11 +1,10 @@
-import { Header } from "./assets/Header"
+import { Main } from "./assets/Main"
+
 
 
 export default function App(){ 
   return(
-    <div>
-      <Header></Header>
-    </div>
+      <Main></Main>
   )
 }
 

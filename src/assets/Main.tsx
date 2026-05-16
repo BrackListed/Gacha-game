@@ -1,0 +1,79 @@
+import { useState } from "react"
+import { Buttons } from "./Buttons"
+
+type Character ={
+    name: string;
+    Atk: number;
+    Def: number;
+    img: string;
+}
+let commonCharacters = [
+    {name: "Takemichi Hanagaki", Atk: 10, Def: 10, img: "characters/Common/Takemichi_Hanagaki.png"},
+    {name: "Haruka Sakura", Atk: 10, Def: 10, img: "characters/Common/Haruka_Sakura.png"},
+]
+
+let rareCharacters = [
+    {name: "Tanjiro Kamado",  Atk: 60, Def: 50, img: "characters/Rare/Tanjiro_Kamado.png"},
+    {name: "Gabimaru the Hollow", Atk: 30, Def: 40, img: "characters/Rare/Gabimaru.png"},
+    {name: "Yuji Itadori", Atk: 50, Def: 50, img: "characters/Rare/Yuji_Itadori.png"},
+    {name: "Alucard Hellsing", Atk: 40, Def: 40, img: "characters/Rare/Alucard_Hellsing.png"},
+]
+
+let legendaryCharacters = [
+    {name: "Izuku Midoriya", Atk: 100, Def: 100, img: "characters/Legendary/Izuku_Midoriya.png"},
+    {name: "Monkey D. Luffy", Atk: 110, Def: 120, img: "characters/Legendary/Luffy.jpg"},
+]
+
+let mythicalCharacters = [
+    {name: "Giorno Giovanna", Atk: 80, Def: 999, img: "characters/Mythical/Giorno.png"},
+    {name: "Saitama", Atk: 500, Def: 500, img: "characters/Mythical/Saitama.png"},
+]
+
+
+
+export function Main(){
+    const [tempCharacter, setTempCharacter] = useState<Character>({} as  Character)
+    const [drawnCharacter, hasDrawnCharacter] = useState(false)
+    return(
+        <div className="flex flex-col gap-3 items-center">
+            <div className="flex gap-7 my-10 justify-center w-screen items-center">
+                <Buttons>STORAGE</Buttons>
+                {<Buttons onClick = {() => startGame(setTempCharacter, hasDrawnCharacter)}>START</Buttons>}
+                <Buttons>CHARACTER DUELS</Buttons>
+            </div>
+
+            {drawnCharacter === true && <div className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl p-6 halo min-w-96 w-fit min-h-96 h-fit flex border-2 border-zinc-400/10 rounded-2xl">
+
+            </div>}
+        </div>
+    
+    )
+}
+
+function startGame(setTempCharacter: (value: Character) => void, hasDrawnCharacter: (value: boolean) => void){
+    let commonIndex = Math.floor(Math.random() * commonCharacters.length)
+    let rareIndex = Math.floor(Math.random() * rareCharacters.length)
+    let legendaryIndex = Math.floor(Math.random() * legendaryCharacters.length)
+    let mythicalIndex = Math.floor(Math.random() * mythicalCharacters.length)
+    let characterIndex = Math.floor(Math.random() * 100) + 1;
+    let tempCharacter: Character
+    if(characterIndex <= 60){
+        tempCharacter = commonCharacters[commonIndex]
+        setTempCharacter(tempCharacter)
+    } else if(characterIndex > 60 && characterIndex <= 90){
+        tempCharacter = rareCharacters[rareIndex]
+        setTempCharacter(tempCharacter)
+    } else if(characterIndex > 90 && characterIndex < 100){
+        tempCharacter = legendaryCharacters[legendaryIndex]
+        setTempCharacter(tempCharacter)
+    } else{
+        tempCharacter = mythicalCharacters[mythicalIndex]
+        setTempCharacter(tempCharacter)
+    }
+
+    hasDrawnCharacter(true)
+
+    console.log(tempCharacter)
+
+
+}
