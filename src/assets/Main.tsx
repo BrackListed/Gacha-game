@@ -30,23 +30,36 @@ let mythicalCharacters = [
 ]
 
 
-
-export function Main(){
+type MainProps = {
+    characters: Character[]; //turn it into array
+    setCharacter: (value: Character[]) => void
+}
+export function Main({characters, setCharacter}: MainProps){
     const [tempCharacter, setTempCharacter] = useState<Character>({} as  Character)
     const [drawnCharacter, hasDrawnCharacter] = useState(false)
     return(
-        <div className="flex flex-col gap-3 items-center">
-            <div className="flex gap-7 my-10 justify-center w-screen items-center">
+    
+        <div className="flex flex-col gap-3 items-center"> 
+            <div className="flex gap-7 my-10 justify-center w-screen items-center"> {/* //header */}
                 <Buttons>STORAGE</Buttons>
                 {<Buttons onClick = {() => startGame(setTempCharacter, hasDrawnCharacter)}>START</Buttons>}
                 <Buttons>CHARACTER DUELS</Buttons>
+            </div> {/* //header closing */}
+
+            <div className="flex gap-4">
+                {drawnCharacter === true && <div className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl p-6 halo min-w-96 w-fit min-h-96 h-fit flex border-2 border-zinc-400/10 rounded-2xl">
+                    <img src = {tempCharacter.img}></img> 
+                </div>} {/* character container closing */}
+                {characters && <div className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl p-6 halo min-w-96 w-fit min-h-96 h-fit flex border-2 border-zinc-400/10 rounded-2xl">Characters in Storage: {
+                    characters.map((character => (
+                        character.name
+                    )))
+                } </div>}
             </div>
 
-            {drawnCharacter === true && <div className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl p-6 halo min-w-96 w-fit min-h-96 h-fit flex border-2 border-zinc-400/10 rounded-2xl">
-
-            </div>}
+           {drawnCharacter && <Buttons onClick={() => storeCharacter(tempCharacter, setCharacter)}>STORE</Buttons>}
         </div>
-    
+
     )
 }
 
@@ -70,10 +83,11 @@ function startGame(setTempCharacter: (value: Character) => void, hasDrawnCharact
         tempCharacter = mythicalCharacters[mythicalIndex]
         setTempCharacter(tempCharacter)
     }
-
     hasDrawnCharacter(true)
-
     console.log(tempCharacter)
+}
 
-
+function storeCharacter(tempCharacter: Character, setCharacter: (value: Character[]) => void){
+    setCharacter([tempCharacter])
+    localStorage.setItem("character-storage", JSON.stringify(tempCharacter)) //saves the character
 }
