@@ -7,6 +7,7 @@ type Character ={
     Atk: number;
     Def: number;
     img: string;
+    id: number;
 }
 let commonCharacters = [
     {name: "Takemichi Hanagaki", Atk: 10, Def: 10, img: "/characters/Common/Takemichi_Hanagaki.png"},
@@ -77,16 +78,16 @@ function startGame(setTempCharacter: (value: Character) => void, hasDrawnCharact
     let characterIndex = Math.floor(Math.random() * 100) + 1;
     let tempCharacter: Character
     if(characterIndex <= 60){
-        tempCharacter = commonCharacters[commonIndex]
+        tempCharacter = {...commonCharacters[commonIndex], id: Date.now()}
         setTempCharacter(tempCharacter)
     } else if(characterIndex > 60 && characterIndex <= 90){
-        tempCharacter = rareCharacters[rareIndex]
+        tempCharacter = {...rareCharacters[rareIndex], id: Date.now()}
         setTempCharacter(tempCharacter)
     } else if(characterIndex > 90 && characterIndex < 100){
-        tempCharacter = legendaryCharacters[legendaryIndex]
+        tempCharacter = {...legendaryCharacters[legendaryIndex], id: Date.now()}
         setTempCharacter(tempCharacter)
     } else{
-        tempCharacter = mythicalCharacters[mythicalIndex]
+        tempCharacter = {...mythicalCharacters[mythicalIndex], id: Date.now()}
         setTempCharacter(tempCharacter)
     }
     hasDrawnCharacter(true)
