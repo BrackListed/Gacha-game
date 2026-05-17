@@ -8,8 +8,8 @@ type Character ={
     img: string;
 }
 let commonCharacters = [
-    {name: "Takemichi Hanagaki", Atk: 10, Def: 10, img: "../characters/common/Takemichi_Hanagaki.png"},
-    {name: "Haruka Sakura", Atk: 10, Def: 10, img: "../characters/Common/Haruka_Sakura.png"},
+    {name: "Takemichi Hanagaki", Atk: 10, Def: 10, img: "characters/Common/Takemichi_Hanagaki.png"},
+    {name: "Haruka Sakura", Atk: 10, Def: 10, img: "characters/Common/Haruka_Sakura.png"},
 ]
 
 let rareCharacters = [
@@ -41,16 +41,21 @@ export function Main({characters, setCharacter}: MainProps){
     
         <div className="flex flex-col gap-3 items-center"> 
             <div className="flex gap-7 my-10 justify-center w-screen items-center"> {/* //header */}
-                <Buttons>STORAGE</Buttons>
+                <Buttons><a href = "../Pages/Storage.tsx">STORAGE</a></Buttons>
                 {<Buttons onClick = {() => startGame(setTempCharacter, hasDrawnCharacter)}>START</Buttons>}
                 <Buttons>CHARACTER DUELS</Buttons>
             </div> {/* //header closing */}
 
             <div className="flex gap-4">
-                {drawnCharacter === true && <div className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl p-6 halo min-w-96 w-fit min-h-96 h-fit flex border-2 border-zinc-400/10 rounded-2xl">
-                    <img src = {tempCharacter.img}></img> 
+                {drawnCharacter === true && <div className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl p-6 halo min-w-96 w-fit min-h-96 h-fit flex flex-col items-center border-2 border-zinc-400/10 rounded-2xl">
+                    <div className="flex backdrop-blur-lg rounded-2xl p-3 border-2  border-zinc-400 shadow-2xl ">Name: {tempCharacter.name}</div>
+                    <img src = {tempCharacter.img} alt ="character-image" className=" object-contain w-120 h-100"></img> 
+                    <div className="flex flex-col backdrop-blur-2xl rounded-2xl p-3 border-2  border-zinc-400/10">
+                        <p>Atk: {tempCharacter.Atk}</p>
+                        <p>Def: {tempCharacter.Def}</p>
+                    </div>
                 </div>} {/* character container closing */}
-                {characters.length >= 1 && <div className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl p-6 halo min-w-96 w-fit min-h-96 h-fit flex flex-col border-2 border-zinc-400/10 rounded-2xl">Characters in Storage: {
+                {characters.length >= 1 && <div className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl py-3 px-10 halo min-w-96 w-fit h-fit flex flex-col border-2 border-zinc-400/10 rounded-2xl">Characters in Storage: {
                     characters.map((character => (
                         <li>{character.name}</li>
                     )))
