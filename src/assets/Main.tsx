@@ -8,8 +8,8 @@ type Character ={
     img: string;
 }
 let commonCharacters = [
-    {name: "Takemichi Hanagaki", Atk: 10, Def: 10, img: "./characters/common/Takemichi_Hanagaki.png"},
-    {name: "Haruka Sakura", Atk: 10, Def: 10, img: "./characters/Common/Haruka_Sakura.png"},
+    {name: "Takemichi Hanagaki", Atk: 10, Def: 10, img: "../characters/common/Takemichi_Hanagaki.png"},
+    {name: "Haruka Sakura", Atk: 10, Def: 10, img: "../characters/Common/Haruka_Sakura.png"},
 ]
 
 let rareCharacters = [
@@ -50,7 +50,7 @@ export function Main({characters, setCharacter}: MainProps){
                 {drawnCharacter === true && <div className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl p-6 halo min-w-96 w-fit min-h-96 h-fit flex border-2 border-zinc-400/10 rounded-2xl">
                     <img src = {tempCharacter.img}></img> 
                 </div>} {/* character container closing */}
-                {characters && <div className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl p-6 halo min-w-96 w-fit min-h-96 h-fit flex flex-col border-2 border-zinc-400/10 rounded-2xl">Characters in Storage: {
+                {characters.length >= 1 && <div className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl p-6 halo min-w-96 w-fit min-h-96 h-fit flex flex-col border-2 border-zinc-400/10 rounded-2xl">Characters in Storage: {
                     characters.map((character => (
                         <li>{character.name}</li>
                     )))
