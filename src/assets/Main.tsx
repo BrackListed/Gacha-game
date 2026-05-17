@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Buttons } from "./Buttons"
-
+import "../index.css"
 type Character ={
     name: string;
     Atk: number;

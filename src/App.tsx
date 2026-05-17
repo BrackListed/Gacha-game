@@ -13,8 +13,9 @@ type Character ={
   img: string;
 }
 
-const[characters, setCharacter] = useState<Character[]>(JSON.parse(localStorage.getItem("character-storage") ?? "null") ?? [])
 export default function App(){ 
+  const[characters, setCharacter] = useState<Character[]>(JSON.parse(localStorage.getItem("character-storage") ?? "null") ?? [])
+  return(
   <BrowserRouter>
   <Routes>
     <Route path = "/" element = {
@@ -27,7 +28,7 @@ export default function App(){
       <Storage/>
     }></Route>
   </Routes>
-  </BrowserRouter>
+  </BrowserRouter>)
 }
 
 

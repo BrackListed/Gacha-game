@@ -1,5 +1,4 @@
-
-
+import "./Storage.css"
 
 export function Storage() {
     return(
