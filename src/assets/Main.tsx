@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Buttons } from "./Buttons"
 import "../index.css"
+import { Link } from "react-router-dom";
 type Character ={
     name: string;
     Atk: number;
@@ -8,25 +9,25 @@ type Character ={
     img: string;
 }
 let commonCharacters = [
-    {name: "Takemichi Hanagaki", Atk: 10, Def: 10, img: "characters/Common/Takemichi_Hanagaki.png"},
-    {name: "Haruka Sakura", Atk: 10, Def: 10, img: "characters/Common/Haruka_Sakura.png"},
+    {name: "Takemichi Hanagaki", Atk: 10, Def: 10, img: "/characters/Common/Takemichi_Hanagaki.png"},
+    {name: "Haruka Sakura", Atk: 10, Def: 10, img: "/characters/Common/Haruka_Sakura.png"},
 ]
 
 let rareCharacters = [
-    {name: "Tanjiro Kamado",  Atk: 60, Def: 50, img: "./characters/Rare/Tanjiro_Kamado.png"},
-    {name: "Gabimaru the Hollow", Atk: 30, Def: 40, img: "./characters/Rare/Gabimaru.png"},
-    {name: "Yuji Itadori", Atk: 50, Def: 50, img: "./characters/Rare/Yuji_Itadori.png"},
-    {name: "Alucard Hellsing", Atk: 40, Def: 40, img: "./characters/Rare/Alucard_Hellsing.png"},
+    {name: "Tanjiro Kamado",  Atk: 60, Def: 50, img: "/characters/Rare/Tanjiro_Kamado.png"},
+    {name: "Gabimaru the Hollow", Atk: 30, Def: 40, img: "/characters/Rare/Gabimaru.png"},
+    {name: "Yuji Itadori", Atk: 50, Def: 50, img: "/characters/Rare/Yuji_Itadori.png"},
+    {name: "Alucard Hellsing", Atk: 40, Def: 40, img: "/characters/Rare/Alucard_Hellsing.png"},
 ]
 
 let legendaryCharacters = [
-    {name: "Izuku Midoriya", Atk: 100, Def: 100, img: "./characters/Legendary/Izuku_Midoriya.png"},
-    {name: "Monkey D. Luffy", Atk: 110, Def: 120, img: "./characters/Legendary/Luffy.jpg"},
+    {name: "Izuku Midoriya", Atk: 100, Def: 100, img: "/characters/Legendary/Izuku_Midoriya.png"},
+    {name: "Monkey D. Luffy", Atk: 110, Def: 120, img: "/characters/Legendary/Luffy.jpg"},
 ]
 
 let mythicalCharacters = [
-    {name: "Giorno Giovanna", Atk: 80, Def: 999, img: "./characters/Mythical/Giorno.png"},
-    {name: "Saitama", Atk: 500, Def: 500, img: "./characters/Mythical/Saitama.png"},
+    {name: "Giorno Giovanna", Atk: 80, Def: 999, img: "/characters/Mythical/Giorno.png"},
+    {name: "Saitama", Atk: 500, Def: 500, img: "/characters/Mythical/Saitama.png"},
 ]
 
 
@@ -41,7 +42,7 @@ export function Main({characters, setCharacter}: MainProps){
     
         <div className="flex flex-col gap-3 items-center"> 
             <div className="flex gap-7 my-10 justify-center w-screen items-center"> {/* //header */}
-                <Buttons><a href = "../Pages/Storage.tsx">STORAGE</a></Buttons>
+                <Link to="/Storage"><Buttons>STORAGE</Buttons></Link>
                 {<Buttons onClick = {() => startGame(setTempCharacter, hasDrawnCharacter)}>START</Buttons>}
                 <Buttons>CHARACTER DUELS</Buttons>
             </div> {/* //header closing */}

@@ -25,7 +25,10 @@ export default function App(){
       />
     }></Route>
     <Route path = "/Storage" element = {
-      <Storage/>
+      <Storage
+      characters = {characters}
+      setCharacter = {setCharacter}
+      />
     }></Route>
   </Routes>
   </BrowserRouter>)
