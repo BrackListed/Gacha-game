@@ -92,8 +92,10 @@ function storeCharacter(tempCharacter: Character, setCharacter: (value: Characte
         setCharacter([tempCharacter])
         localStorage.setItem("character-storage", JSON.stringify(tempCharacter)) //saves the character
     } else{
-        const characterStorage = [...characters, tempCharacter]
-        setCharacter(characterStorage)
-        localStorage.setItem("character-storage", JSON.stringify(characterStorage))
+        if(characters.length < 10){
+            const characterStorage = [...characters, tempCharacter]
+            setCharacter(characterStorage)
+            localStorage.setItem("character-storage", JSON.stringify(characterStorage))
+        }
     }
 }
