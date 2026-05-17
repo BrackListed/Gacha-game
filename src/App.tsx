@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
 import { Storage } from "./Pages/Storage";
+import { Duels } from "./Pages/Duels";
 
 
 type Character ={
@@ -11,6 +12,7 @@ type Character ={
   Atk: number;
   Def: number;
   img: string;
+  id: number;
 }
 
 export default function App(){ 
@@ -24,12 +26,20 @@ export default function App(){
         setCharacter = {setCharacter}
       />
     }></Route>
+
     <Route path = "/Storage" element = {
       <Storage
       characters = {characters}
       setCharacter = {setCharacter}
       />
     }></Route>
+
+    <Route path = "/Duels" element = {
+      <Duels
+        characters = {characters}
+      />
+    }></Route>
+
   </Routes>
   </BrowserRouter>)
 }

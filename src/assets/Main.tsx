@@ -33,7 +33,7 @@ let mythicalCharacters = [
 
 
 type MainProps = {
-    characters: Character[]; //turn it into array
+    characters: Character[]; 
     setCharacter: (value: Character[]) => void
 }
 export function Main({characters, setCharacter}: MainProps){
@@ -42,10 +42,10 @@ export function Main({characters, setCharacter}: MainProps){
     return(
     
         <div className="flex flex-col gap-3 items-center"> 
-            <div className="flex gap-7 my-10 justify-center w-screen items-center"> {/* //header */}
+            <div className="flex gap-7 my-10 justify-center w-screen items-center"> 
                 <Link to="/Storage"><Buttons>STORAGE</Buttons></Link>
                 {<Buttons onClick = {() => startGame(setTempCharacter, hasDrawnCharacter)}>START</Buttons>}
-                <Buttons>CHARACTER DUELS</Buttons>
+                <Link to="/Duels"><Buttons>CHARACTER DUELS</Buttons></Link>
             </div> {/* //header closing */}
 
             <div className="flex gap-4">
@@ -91,13 +91,12 @@ function startGame(setTempCharacter: (value: Character) => void, hasDrawnCharact
         setTempCharacter(tempCharacter)
     }
     hasDrawnCharacter(true)
-    console.log(tempCharacter.img)
 }
 
 function storeCharacter(tempCharacter: Character, setCharacter: (value: Character[]) => void, characters: Character[]){
     if(characters.length === 0){
         setCharacter([tempCharacter])
-        localStorage.setItem("character-storage", JSON.stringify(tempCharacter)) //saves the character
+        localStorage.setItem("character-storage", JSON.stringify(tempCharacter))
     } else{
         if(characters.length < 10){
             const characterStorage = [...characters, tempCharacter]
