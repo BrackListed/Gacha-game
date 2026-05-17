@@ -8,25 +8,25 @@ type Character ={
     img: string;
 }
 let commonCharacters = [
-    {name: "Takemichi Hanagaki", Atk: 10, Def: 10, img: "characters/Common/Takemichi_Hanagaki.png"},
-    {name: "Haruka Sakura", Atk: 10, Def: 10, img: "characters/Common/Haruka_Sakura.png"},
+    {name: "Takemichi Hanagaki", Atk: 10, Def: 10, img: "./characters/common/Takemichi_Hanagaki.png"},
+    {name: "Haruka Sakura", Atk: 10, Def: 10, img: "./characters/Common/Haruka_Sakura.png"},
 ]
 
 let rareCharacters = [
-    {name: "Tanjiro Kamado",  Atk: 60, Def: 50, img: "characters/Rare/Tanjiro_Kamado.png"},
-    {name: "Gabimaru the Hollow", Atk: 30, Def: 40, img: "characters/Rare/Gabimaru.png"},
-    {name: "Yuji Itadori", Atk: 50, Def: 50, img: "characters/Rare/Yuji_Itadori.png"},
-    {name: "Alucard Hellsing", Atk: 40, Def: 40, img: "characters/Rare/Alucard_Hellsing.png"},
+    {name: "Tanjiro Kamado",  Atk: 60, Def: 50, img: "./characters/Rare/Tanjiro_Kamado.png"},
+    {name: "Gabimaru the Hollow", Atk: 30, Def: 40, img: "./characters/Rare/Gabimaru.png"},
+    {name: "Yuji Itadori", Atk: 50, Def: 50, img: "./characters/Rare/Yuji_Itadori.png"},
+    {name: "Alucard Hellsing", Atk: 40, Def: 40, img: "./characters/Rare/Alucard_Hellsing.png"},
 ]
 
 let legendaryCharacters = [
-    {name: "Izuku Midoriya", Atk: 100, Def: 100, img: "characters/Legendary/Izuku_Midoriya.png"},
-    {name: "Monkey D. Luffy", Atk: 110, Def: 120, img: "characters/Legendary/Luffy.jpg"},
+    {name: "Izuku Midoriya", Atk: 100, Def: 100, img: "./characters/Legendary/Izuku_Midoriya.png"},
+    {name: "Monkey D. Luffy", Atk: 110, Def: 120, img: "./characters/Legendary/Luffy.jpg"},
 ]
 
 let mythicalCharacters = [
-    {name: "Giorno Giovanna", Atk: 80, Def: 999, img: "characters/Mythical/Giorno.png"},
-    {name: "Saitama", Atk: 500, Def: 500, img: "characters/Mythical/Saitama.png"},
+    {name: "Giorno Giovanna", Atk: 80, Def: 999, img: "./characters/Mythical/Giorno.png"},
+    {name: "Saitama", Atk: 500, Def: 500, img: "./characters/Mythical/Saitama.png"},
 ]
 
 
@@ -50,14 +50,14 @@ export function Main({characters, setCharacter}: MainProps){
                 {drawnCharacter === true && <div className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl p-6 halo min-w-96 w-fit min-h-96 h-fit flex border-2 border-zinc-400/10 rounded-2xl">
                     <img src = {tempCharacter.img}></img> 
                 </div>} {/* character container closing */}
-                {characters && <div className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl p-6 halo min-w-96 w-fit min-h-96 h-fit flex border-2 border-zinc-400/10 rounded-2xl">Characters in Storage: {
+                {characters && <div className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl p-6 halo min-w-96 w-fit min-h-96 h-fit flex flex-col border-2 border-zinc-400/10 rounded-2xl">Characters in Storage: {
                     characters.map((character => (
-                        character.name
+                        <li>{character.name}</li>
                     )))
                 } </div>}
             </div>
 
-           {drawnCharacter && <Buttons onClick={() => storeCharacter(tempCharacter, setCharacter)}>STORE</Buttons>}
+           {drawnCharacter && <Buttons onClick={() => storeCharacter(tempCharacter, setCharacter, characters)}>STORE</Buttons>}
         </div>
 
     )
@@ -84,10 +84,16 @@ function startGame(setTempCharacter: (value: Character) => void, hasDrawnCharact
         setTempCharacter(tempCharacter)
     }
     hasDrawnCharacter(true)
-    console.log(tempCharacter)
+    console.log(tempCharacter.img)
 }
 
-function storeCharacter(tempCharacter: Character, setCharacter: (value: Character[]) => void){
-    setCharacter([tempCharacter])
-    localStorage.setItem("character-storage", JSON.stringify(tempCharacter)) //saves the character
+function storeCharacter(tempCharacter: Character, setCharacter: (value: Character[]) => void, characters: Character[]){
+    if(characters.length === 0){
+        setCharacter([tempCharacter])
+        localStorage.setItem("character-storage", JSON.stringify(tempCharacter)) //saves the character
+    } else{
+        const characterStorage = [...characters, tempCharacter]
+        setCharacter(characterStorage)
+        localStorage.setItem("character-storage", JSON.stringify(characterStorage))
+    }
 }
