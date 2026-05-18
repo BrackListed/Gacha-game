@@ -33,7 +33,7 @@ let legendaryCharacters: Character[] = [
 
 let mythicalCharacters: Character[] = [
     {name: "Giorno Giovanna", Atk: 80, Def: 999, img: "/characters/Mythical/Giorno.png", id: undefined},
-    {name: "Saitama", Atk: 500, Def: 500, img: "/characters/Mythical/Saitama.png", id: undefined},
+    // {name: "Saitama", Atk: 500, Def: 500, img: "/characters/Mythical/Saitama.png", id: undefined},
 ]
 
 
