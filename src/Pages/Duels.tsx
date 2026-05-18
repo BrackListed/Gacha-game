@@ -19,7 +19,7 @@ type DuelProps = {
 export function Duels({characters, commonCharacters, rareCharacters, legendaryCharacters, mythicalCharacters}: DuelProps) {
     const [fighter, setFighter] = useState<Character | null>(JSON.parse(localStorage.getItem("fighter-storage") ?? "null") ?? [])
     const [botFighter, setBotFighter] = useState<Character | null>(JSON.parse(localStorage.getItem("bot-fighter") ?? "null") ?? []) 
-    const [chosenState, setChosenState] = useState(JSON.parse(localStorage.getItem("has-chosen") ?? "false")?? false)
+    const [chosenState, setChosenState] = useState(false)
     const [chosenDifficulty, setChosenDifficulty] = useState(false)
     const [difficulty, setDifficulty] = useState(0)
     const [isAlive, setisAlive] = useState(JSON.parse(localStorage.getItem("player-state") ?? "false") ?? false)
@@ -35,19 +35,19 @@ export function Duels({characters, commonCharacters, rareCharacters, legendaryCh
         <div id ="body" className="bg-[url('/Background/Duels.jpg')] w-screen h-screen bg-no-repeat bg-center bg-cover bg-fixed flex items-center">
             <div id = "player-actions" className="flex flex-col px-6">
                 <div id = "chosen-character-container" className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl px-3 py-6 halo min-w-170 w-fit min-h-140 my-2 h-fit flex flex-col gap-2 items-center border-2 border-zinc-400/10 rounded-2xl">
-                    {chosenState && <progress max = {fighter?.Def} value = {fighter?.Def} className="rounded-lg bg-red-400">HP: {fighter?.Def}</progress>}
-                    {chosenState === false && <h1 className="flex items-center justify-center text-center w-full h-full text-zinc-50 text-3xl">You haven't added a character yet! Add one to get started</h1>}
-                    {chosenState && <img src = {fighter?.img} alt = "image of character" className="w-80 h-100"></img>}
-                    {chosenState && <div id = "fighter-stats" className="flex backdrop-blur-lg rounded-2xl border-2 flex-col gap-1 border-zinc-400 shadow-2xl w-fit px-6 py-2 font-bold text-center justify-center">
+                    {(chosenState === true || isAlive === true) && <progress max = {fighter?.Def} value = {fighter?.Def} className="rounded-lg bg-red-400">HP: {fighter?.Def}</progress>}
+                    {(chosenState === false && isAlive === false) && <h1 className="flex items-center justify-center text-center w-full h-full text-zinc-50 text-3xl">You haven't added a character yet! Add one to get started</h1>}
+                    {(chosenState === true || isAlive === true) && <img src = {fighter!.img} alt = "image of character" className="w-80 h-100"></img>}
+                    {(chosenState === true || isAlive === true) && <div id = "fighter-stats" className="flex backdrop-blur-lg rounded-2xl border-2 flex-col gap-1 border-zinc-400 shadow-2xl w-fit px-6 py-2 font-bold text-center justify-center">
                         <p>Atk: {fighter?.Atk}</p>
                         <p>Def: {fighter?.Def}</p>
                     </div>}
                 </div>
-                <div id = "choose-characters-here" className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl px-3 py-6 halo w-170 min-h-50 h-fit flex gap-2 items-center border-2 border-zinc-400/10 rounded-2xl flex-wrap">
+                {isAlive === false && <div id = "choose-characters-here" className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl px-3 py-6 halo w-170 min-h-50 h-fit flex gap-2 items-center border-2 border-zinc-400/10 rounded-2xl flex-wrap">
                 {characters.length > 0 && characters.map((character) =>(
-                        <button onClick = {() => {setFighter(character), setChosenState(true)}}className="flex-1 grow hover:brightness-90 outline-2 outline-zinc-50 hover:p-4 hover:cursor-pointer min-w-26 hover:scale-105 transition-all bg-red-600/80 p-3 rounded-lg">{character.name}</button>
+                        <button onClick = {() => {setFighter(character), setChosenState(true), localStorage.setItem('fighter-storage', JSON.stringify(character))}}className="flex-1 grow hover:brightness-90 outline-2 outline-zinc-50 hover:p-4 hover:cursor-pointer min-w-26 hover:scale-105 transition-all bg-red-600/80 p-3 rounded-lg">{character.name}</button>
                 ))}
-                </div>
+                </div>}
             </div>
 
             <div id = "center" className="flex flex-col gap-3">
@@ -60,11 +60,11 @@ export function Duels({characters, commonCharacters, rareCharacters, legendaryCh
 
             <div id = "bot-actions-and-difficulty" className="flex flex-col gap-2">
                 <div id = "bot-character-container" className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl px-3 py-6 halo min-w-165 w-fit min-h-170 mx-5 h-fit flex flex-col gap-2 items-center border-2 border-zinc-400/10 rounded-2xl">
-                    {chosenDifficulty === false && <h1 className="flex items-center justify-center text-center w-full h-full text-zinc-50 text-3xl">Choose a difficulty first!</h1>}
+                    {(chosenDifficulty === false && isAlive === false) && <h1 className="flex items-center justify-center text-center w-full h-full text-zinc-50 text-3xl">Choose a difficulty first!</h1>}
                     {(chosenDifficulty === true && isAlive === false) && <h1 className="flex items-center justify-center text-center w-full h-full text-zinc-50 text-3xl">Click Start Game!</h1>}
-                    {(chosenDifficulty === true && isAlive === true) && <progress max = {botFighter?.Def} value = {botFighter?.Def}>HP:</progress>}
-                    {(chosenDifficulty === true && isAlive === true) && <img alt = "Character image" src = {botFighter?.img} className="flex w-full h-140"></img>}
-                    {(chosenDifficulty === true && isAlive === true) && <div id = "bot-stats" className="flex backdrop-blur-lg rounded-2xl border-2 flex-col gap-1 border-zinc-400 shadow-2xl w-fit px-6 py-2 font-bold text-center justify-center">
+                    {(chosenDifficulty === true || isAlive === true) && <progress max = {botFighter?.Def} value = {botFighter?.Def}>HP:</progress>}
+                    {(chosenDifficulty === true || isAlive === true) && <img alt = "Character image" src = {botFighter?.img} className="flex w-full h-140"></img>}
+                    {(chosenDifficulty === true || isAlive === true) && <div id = "bot-stats" className="flex backdrop-blur-lg rounded-2xl border-2 flex-col gap-1 border-zinc-400 shadow-2xl w-fit px-6 py-2 font-bold text-center justify-center">
                         <p>Atk: {botFighter?.Atk} </p>
                         <p>Def: {botFighter?.Def} </p>
                         </div>}
