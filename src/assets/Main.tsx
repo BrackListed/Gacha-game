@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Buttons } from "./Buttons"
 import "../index.css"
 import { Link } from "react-router-dom";
+import { motion } from "motion/react"
 type Character ={
     name: string;
     Atk: number;
@@ -34,7 +35,17 @@ export function Main({characters, setCharacter, commonCharacters, rareCharacters
             <div className="flex gap-4">
                 {drawnCharacter === true && <div className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl p-6 halo min-w-96 w-fit min-h-96 h-fit flex flex-col items-center border-2 border-zinc-400/10 rounded-2xl">
                     <div className="flex backdrop-blur-lg rounded-2xl p-3 border-2  border-zinc-400 shadow-2xl ">Name: {tempCharacter.name}</div>
-                    <img src = {tempCharacter.img} alt ="character-image" className=" object-contain w-120 h-100"></img> 
+                    <motion.img src = {tempCharacter.img} alt ="character-image" className=" object-contain w-120 h-100"
+                    key = {tempCharacter.id || tempCharacter.img}
+                    initial={{ scale: 0.8, opacity: 0, y: 20 }}
+                    animate={{ scale: 1, opacity: 1, y: 0 }}
+                    transition={{ 
+                        type: "spring", 
+                        stiffness: 260, 
+                        damping: 20, 
+                        opacity: { duration: 0.2 } 
+                    }}
+                    ></motion.img> 
                     <div className="flex flex-col backdrop-blur-2xl rounded-2xl p-3 border-2  border-zinc-400/10">
                         <p>Atk: {tempCharacter.Atk}</p>
                         <p>Def: {tempCharacter.Def}</p>
