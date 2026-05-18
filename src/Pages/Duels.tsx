@@ -26,6 +26,8 @@ export function Duels({characters, commonCharacters, rareCharacters, legendaryCh
     const [hasAttacked, setHasAttacked] = useState(false)
     const [botAttacked, setBotAttacked] = useState(false)
     const [buttonCooldown, setButtonCooldown] = useState(false)
+    const [initialPlayerDef, setinitialPlayerDef] = useState(fighter?.Def)
+    const [initialBotDef, setinitialBotDef] = useState(botFighter?.Def)
     
     useEffect(() => {
         if(isAlive === false){
@@ -76,13 +78,12 @@ export function Duels({characters, commonCharacters, rareCharacters, legendaryCh
         }
     }, [hasAttacked, botAttacked])
 
-
     return(
         <div id ="body" className="bg-[url('/Background/Duels.jpg')] w-screen h-screen bg-no-repeat bg-center bg-cover bg-fixed flex items-center">
             <div id = "player-actions" className="flex flex-col px-6 items-center">
                 {botAttacked === true && <h1 className="flex-1 w-full h-full text-center text-2xl font-bold ">Bot Attacks! - {botFighter?.Atk} Hp</h1>}
                 <div id = "chosen-character-container" className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl px-3 py-6 halo min-w-170 w-fit min-h-140 my-2 h-fit flex flex-col gap-2 items-center border-2 border-zinc-400/10 rounded-2xl">
-                    {(chosenState === true || isAlive === true) && <progress max = {fighter?.Def} value = {fighter?.Def} className="rounded-lg bg-red-400">HP: {fighter?.Def}</progress>}
+                    {(chosenState === true || isAlive === true) && <progress max = {initialPlayerDef} value = {fighter?.Def} className="rounded-lg bg-red-400">HP: {fighter?.Def}</progress>}
                     {(chosenState === false && isAlive === false) && <h1 className="flex items-center justify-center text-center w-full h-full text-zinc-50 text-3xl">You haven't added a character yet! Add one to get started</h1>}
                     {(chosenState === true || isAlive === true) && <img src = {fighter!.img} alt = "image of character" className="w-80 h-100"></img>}
                     {(chosenState === true || isAlive === true) && <div id = "fighter-stats" className="flex backdrop-blur-lg rounded-2xl border-2 flex-col gap-1 border-zinc-400 shadow-2xl w-fit px-6 py-2 font-bold text-center justify-center">
@@ -111,7 +112,7 @@ export function Duels({characters, commonCharacters, rareCharacters, legendaryCh
                 <div id = "bot-character-container" className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl px-3 py-6 halo min-w-165 w-fit min-h-170 mx-5 h-fit flex flex-col gap-2 items-center border-2 border-zinc-400/10 rounded-2xl">
                     {(chosenDifficulty === false && isAlive === false) && <h1 className="flex items-center justify-center text-center w-full h-full text-zinc-50 text-3xl">Choose a difficulty first!</h1>}
                     {(chosenDifficulty === true && isAlive === false) && <h1 className="flex items-center justify-center text-center w-full h-full text-zinc-50 text-3xl">Click Start Game!</h1>}
-                    {(chosenDifficulty === true && isAlive === true) && <progress max = {botFighter?.Def} value = {botFighter?.Def}>HP:</progress>}
+                    {(chosenDifficulty === true && isAlive === true) && <progress max = {initialBotDef} value = {botFighter?.Def}>HP:</progress>}
                     {(chosenDifficulty === true && isAlive === true) && <img alt = "Character image" src = {botFighter?.img} className="flex w-full h-140"></img>}
                     {(chosenDifficulty === true && isAlive === true) && <div id = "bot-stats" className="flex backdrop-blur-lg rounded-2xl border-2 flex-col gap-1 border-zinc-400 shadow-2xl w-fit px-6 py-2 font-bold text-center justify-center">
                         <p>Atk: {botFighter?.Atk} </p>
