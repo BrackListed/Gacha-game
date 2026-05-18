@@ -7,36 +7,19 @@ type Character ={
     Atk: number;
     Def: number;
     img: string;
-    id: number;
+    id: number | undefined;
 }
-let commonCharacters = [
-    {name: "Takemichi Hanagaki", Atk: 10, Def: 10, img: "/characters/Common/Takemichi_Hanagaki.png"},
-    {name: "Haruka Sakura", Atk: 10, Def: 10, img: "/characters/Common/Haruka_Sakura.png"},
-]
-
-let rareCharacters = [
-    {name: "Tanjiro Kamado",  Atk: 60, Def: 50, img: "/characters/Rare/Tanjiro_Kamado.png"},
-    {name: "Gabimaru the Hollow", Atk: 30, Def: 40, img: "/characters/Rare/Gabimaru.png"},
-    {name: "Yuji Itadori", Atk: 50, Def: 50, img: "/characters/Rare/Yuji_Itadori.png"},
-    {name: "Alucard Hellsing", Atk: 40, Def: 40, img: "/characters/Rare/Alucard_Hellsing.png"},
-]
-
-let legendaryCharacters = [
-    {name: "Izuku Midoriya", Atk: 100, Def: 100, img: "/characters/Legendary/Izuku_Midoriya.png"},
-    {name: "Monkey D. Luffy", Atk: 110, Def: 120, img: "/characters/Legendary/Luffy.jpg"},
-]
-
-let mythicalCharacters = [
-    {name: "Giorno Giovanna", Atk: 80, Def: 999, img: "/characters/Mythical/Giorno.png"},
-    {name: "Saitama", Atk: 500, Def: 500, img: "/characters/Mythical/Saitama.png"},
-]
 
 
 type MainProps = {
     characters: Character[]; 
-    setCharacter: (value: Character[]) => void
+    setCharacter: (value: Character[]) => void;
+    commonCharacters: Character[];
+    rareCharacters: Character[];
+    legendaryCharacters: Character[];
+    mythicalCharacters: Character[];
 }
-export function Main({characters, setCharacter}: MainProps){
+export function Main({characters, setCharacter, commonCharacters, rareCharacters, legendaryCharacters, mythicalCharacters}: MainProps){
     const [tempCharacter, setTempCharacter] = useState<Character>({} as  Character)
     const [drawnCharacter, hasDrawnCharacter] = useState(false)
     return(
@@ -44,7 +27,7 @@ export function Main({characters, setCharacter}: MainProps){
         <div className="flex flex-col gap-3 items-center"> 
             <div className="flex gap-7 my-10 justify-center w-screen items-center"> 
                 <Link to="/Storage"><Buttons>STORAGE</Buttons></Link>
-                {<Buttons onClick = {() => startGame(setTempCharacter, hasDrawnCharacter)}>START</Buttons>}
+                {<Buttons onClick = {() => startGame(setTempCharacter, hasDrawnCharacter, commonCharacters, rareCharacters, legendaryCharacters, mythicalCharacters)}>START</Buttons>}
                 <Link to="/Duels"><Buttons>CHARACTER DUELS</Buttons></Link>
             </div> {/* //header closing */}
 
@@ -70,7 +53,7 @@ export function Main({characters, setCharacter}: MainProps){
     )
 }
 
-function startGame(setTempCharacter: (value: Character) => void, hasDrawnCharacter: (value: boolean) => void){
+function startGame(setTempCharacter: (value: Character) => void, hasDrawnCharacter: (value: boolean) => void, commonCharacters: Character[], rareCharacters: Character[], legendaryCharacters: Character[], mythicalCharacters: Character[]){
     let commonIndex = Math.floor(Math.random() * commonCharacters.length)
     let rareIndex = Math.floor(Math.random() * rareCharacters.length)
     let legendaryIndex = Math.floor(Math.random() * legendaryCharacters.length)

@@ -3,13 +3,15 @@ type Character = {
     Atk: number;
     Def: number;
     img: string;
-    id: number;
+    id: number | undefined;
 }
 
 type StorageProps = {
     characters: Character[]
     setCharacter: (value: Character[]) => void
 }
+
+
 
 
 export function Storage({characters, setCharacter}: StorageProps) {
@@ -25,7 +27,7 @@ export function Storage({characters, setCharacter}: StorageProps) {
                             <button onClick = {() => removeCharacter(character.id, characters, setCharacter)}className="flex bg-red-600 border-2 border-zinc-900 text-zinc-900 h-fit p-2 text-2xl hover:cursor-pointer transition-all hover:scale-105 hover:bg-red-800">×</button>
                         </div>
                         <img src = {character.img} alt = "image of character" className="object-contain h-42"></img>
-                        <div id = "Stats" className="mx-5 rounded-lg flex backdrop-blur-lg rounded-2xl border-2 flex-col gap-1 border-zinc-400 shadow-2xl w-42 text-center justify-center">
+                        <div id = "Stats" className="flex backdrop-blur-lg rounded-2xl border-2 flex-col gap-1 border-zinc-400 shadow-2xl w-42 text-center justify-center">
                             <p>Atk: {character.Atk}</p>
                             <p>Def: {character.Def}</p>
                         </div>
@@ -37,7 +39,7 @@ export function Storage({characters, setCharacter}: StorageProps) {
     )
 }
 
-function removeCharacter(id: number, characters: Character[], setCharacter: (value: Character[]) => void){
+function removeCharacter(id: number | undefined, characters: Character[], setCharacter: (value: Character[]) => void){
     const removedCharacter = characters.filter(removeCharacter => removeCharacter.id != id)
     setCharacter(removedCharacter)
 }
