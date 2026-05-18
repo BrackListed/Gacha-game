@@ -26,7 +26,9 @@ export function Duels({characters, commonCharacters, rareCharacters, legendaryCh
     const [hasAttacked, setHasAttacked] = useState(false)
     const [botAttacked, setBotAttacked] = useState(false)
     const [buttonCooldown, setButtonCooldown] = useState(false)
+    // @ts-ignore
     const [initialPlayerDef, setinitialPlayerDef] = useState(fighter?.Def)
+    // @ts-ignore
     const [initialBotDef, setinitialBotDef] = useState(botFighter?.Def)
     const [winCount, Won] = useState(parseInt(localStorage.getItem("win-storage") ?? "0") ?? 0)
     const [lossCount, Lost] = useState(parseInt(localStorage.getItem("loss-storage") ?? "0") ?? 0)
