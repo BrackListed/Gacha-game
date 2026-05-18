@@ -30,6 +30,7 @@ export function Duels({characters, commonCharacters, rareCharacters, legendaryCh
             setBotFighter(null)
             setChosenState(false)
             setDifficulty(0)
+            
         }
     }, [isAlive])
 
@@ -41,7 +42,8 @@ export function Duels({characters, commonCharacters, rareCharacters, legendaryCh
                 setBotFighter(null)
                 setChosenState(false)
                 setChosenDifficulty(false)
-                 setDifficulty(0)
+                setDifficulty(0)
+                localStorage.setItem("player-state", JSON.stringify(false))
                 setisAlive(false)
             }
         }
@@ -56,7 +58,8 @@ export function Duels({characters, commonCharacters, rareCharacters, legendaryCh
                 setBotFighter(null)
                 setChosenState(false)
                 setChosenDifficulty(false)
-                 setDifficulty(0)
+                setDifficulty(0)
+                localStorage.setItem("player-state", JSON.stringify(false))
                 setisAlive(false)
             }
         }
@@ -145,7 +148,6 @@ export function Duels({characters, commonCharacters, rareCharacters, legendaryCh
     }
 
     function Fight(fighter: Character, botFighter: Character){
-        botFighter.Def = botFighter.Def - fighter.Atk
         setBotFighter({...botFighter, Def: botFighter.Def - fighter.Atk})
     }
 }
