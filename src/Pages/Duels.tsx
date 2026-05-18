@@ -69,25 +69,18 @@ export function Duels({characters, commonCharacters, rareCharacters, legendaryCh
     }, [botFighter])
 
     useEffect(() => {
-        if(hasAttacked === true){
-            if(botAttacked === true){
-                setHasAttacked(false)
-            }
+        if(hasAttacked === true){ //if the player has attacked
+            setBotAttacked(false)
+        } else if(botAttacked === true){ // if the bot has attacked
+            setHasAttacked(false)
         }
-    }, [hasAttacked])
+    }, [hasAttacked, botAttacked])
 
-    useEffect(() => {
-        if(botAttacked === true){
-            if(hasAttacked === true){
-                setBotAttacked(false)
-            }
-        }
-    }, [botAttacked])
 
     return(
         <div id ="body" className="bg-[url('/Background/Duels.jpg')] w-screen h-screen bg-no-repeat bg-center bg-cover bg-fixed flex items-center">
             <div id = "player-actions" className="flex flex-col px-6 items-center">
-                {botAttacked && <h1 className="flex-1 w-full h-full text-center text-2xl font-bold ">Bot Attacks! - {botFighter?.Atk} Hp</h1>}
+                {botAttacked === true && <h1 className="flex-1 w-full h-full text-center text-2xl font-bold ">Bot Attacks! - {botFighter?.Atk} Hp</h1>}
                 <div id = "chosen-character-container" className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl px-3 py-6 halo min-w-170 w-fit min-h-140 my-2 h-fit flex flex-col gap-2 items-center border-2 border-zinc-400/10 rounded-2xl">
                     {(chosenState === true || isAlive === true) && <progress max = {fighter?.Def} value = {fighter?.Def} className="rounded-lg bg-red-400">HP: {fighter?.Def}</progress>}
                     {(chosenState === false && isAlive === false) && <h1 className="flex items-center justify-center text-center w-full h-full text-zinc-50 text-3xl">You haven't added a character yet! Add one to get started</h1>}
@@ -109,12 +102,12 @@ export function Duels({characters, commonCharacters, rareCharacters, legendaryCh
                     <p>Wins: </p>
                     <p>Losses: </p>
                 </div>
-               {(chosenState === true && chosenDifficulty === true && isAlive === false) && <button onClick = {() => startGame(fighter!, difficulty, botFighter!, setBotFighter)}className="flex bg-green-400 rounded-2xl border-2 flex-col gap-1 border-zinc-400 shadow-2xl w-fit px-6 py-3 h-fit text-center justify-center hover:cursor-pointer hover:bg-green-500 hover:px-7 hover:py-4 hover:scale-105 transition-all">START</button>}
+               {(chosenState === true && chosenDifficulty === true && isAlive === false) && <button onClick = {() => startGame(difficulty, botFighter!, setBotFighter)}className="flex bg-green-400 rounded-2xl border-2 flex-col gap-1 border-zinc-400 shadow-2xl w-fit px-6 py-3 h-fit text-center justify-center hover:cursor-pointer hover:bg-green-500 hover:px-7 hover:py-4 hover:scale-105 transition-all">START</button>}
                {(isAlive === true && <button  disabled = {buttonCooldown} onClick = {() => Fight(fighter!, botFighter!)}className="flex bg-red-700 rounded-2xl border-2 flex-col gap-1 border-zinc-400 shadow-2xl w-fit px-6 py-3 h-fit text-center justify-center hover:cursor-pointer hover:brightness-75 hover:px-7 hover:py-4 hover:scale-105 transition-all">ATTACK</button>)}
             </div>
 
             <div id = "bot-actions-and-difficulty" className="flex flex-col gap-2 items-center">
-                {hasAttacked && <h1 className="flex-1 w-full h-full text-center text-2xl font-bold ">Player attacked! -{fighter?.Atk} Hp!</h1>}
+                {hasAttacked === true && <h1 className="flex-1 w-full h-full text-center text-2xl font-bold ">Player attacked! -{fighter?.Atk} Hp!</h1>}
                 <div id = "bot-character-container" className=" ring-black/10 ring-1 bg-white/10 backdrop-blur-sm shadow-2xl px-3 py-6 halo min-w-165 w-fit min-h-170 mx-5 h-fit flex flex-col gap-2 items-center border-2 border-zinc-400/10 rounded-2xl">
                     {(chosenDifficulty === false && isAlive === false) && <h1 className="flex items-center justify-center text-center w-full h-full text-zinc-50 text-3xl">Choose a difficulty first!</h1>}
                     {(chosenDifficulty === true && isAlive === false) && <h1 className="flex items-center justify-center text-center w-full h-full text-zinc-50 text-3xl">Click Start Game!</h1>}
@@ -137,7 +130,7 @@ export function Duels({characters, commonCharacters, rareCharacters, legendaryCh
         </div>
     )
 
-    function startGame(fighter: Character, difficulty: number, botFighter: Character, setBotFighter: (value: Character) => void){
+    function startGame(difficulty: number, botFighter: Character, setBotFighter: (value: Character) => void){
         const commonIndex = Math.floor(Math.random() * commonCharacters.length) 
         const rareIndex = Math.floor(Math.random() * rareCharacters.length)
         const legendaryIndex = Math.floor(Math.random() * legendaryCharacters.length)
@@ -172,10 +165,16 @@ export function Duels({characters, commonCharacters, rareCharacters, legendaryCh
         setButtonCooldown(true)
         setTimeout(() => {
             setButtonCooldown(false)
-        }, 1000);
+        }, 3000);
         setBotFighter({...botFighter, Def: botFighter.Def - fighter.Atk})
-        setFighter({...fighter, Def: fighter.Def - botFighter.Atk})
         setHasAttacked(true)
-        setBotAttacked(true)
+        setBotAttacked(false)
+        setTimeout(() => {
+            setFighter({...fighter, Def: fighter.Def - botFighter.Atk})
+            setBotAttacked(true)
+            setHasAttacked(false)
+        }, 1000);
+
+        
     }
 }
