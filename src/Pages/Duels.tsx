@@ -28,6 +28,8 @@ export function Duels({characters, commonCharacters, rareCharacters, legendaryCh
     const [buttonCooldown, setButtonCooldown] = useState(false)
     const [initialPlayerDef, setinitialPlayerDef] = useState(fighter?.Def)
     const [initialBotDef, setinitialBotDef] = useState(botFighter?.Def)
+    const [winCount, Won] = useState(parseInt(localStorage.getItem("win-storage") ?? "0") ?? 0)
+    const [lossCount, Lost] = useState(parseInt(localStorage.getItem("loss-storage") ?? "0") ?? 0)
     
     useEffect(() => {
         if(isAlive === false){
@@ -42,6 +44,9 @@ export function Duels({characters, commonCharacters, rareCharacters, legendaryCh
     useEffect(() => {
         if(fighter !==  null){
             if(fighter!.Def < 0){
+                const newLosses = lossCount + 1
+                Lost(newLosses)
+                localStorage.setItem('loss-storage', JSON.stringify(newLosses))
                 alert("You lost!")
                 setFighter(null)
                 setBotFighter(null)
@@ -58,6 +63,9 @@ export function Duels({characters, commonCharacters, rareCharacters, legendaryCh
     useEffect(() => {
         if(botFighter !== null){
             if(botFighter!.Def <= 0){
+                const newWins = winCount + 1
+                Won(newWins)
+                localStorage.setItem('win-storage', JSON.stringify(newWins))
                 alert("You won!")
                 setFighter(null)
                 setBotFighter(null)
@@ -100,8 +108,8 @@ export function Duels({characters, commonCharacters, rareCharacters, legendaryCh
 
             <div id = "center" className="flex flex-col gap-3">
                 <div className="flex backdrop-blur-lg rounded-2xl border-2 flex-col gap-1 border-zinc-400 shadow-2xl w-fit px-6 py-2 font-bold text-center justify-center">
-                    <p>Wins: </p>
-                    <p>Losses: </p>
+                    <p>Wins: {winCount}</p>
+                    <p>Losses: {lossCount}</p>
                 </div>
                {(chosenState === true && chosenDifficulty === true && isAlive === false) && <button onClick = {() => startGame(difficulty, botFighter!, setBotFighter)}className="flex bg-green-400 rounded-2xl border-2 flex-col gap-1 border-zinc-400 shadow-2xl w-fit px-6 py-3 h-fit text-center justify-center hover:cursor-pointer hover:bg-green-500 hover:px-7 hover:py-4 hover:scale-105 transition-all">START</button>}
                {(isAlive === true && <button  disabled = {buttonCooldown} onClick = {() => Fight(fighter!, botFighter!)}className="flex bg-red-700 rounded-2xl border-2 flex-col gap-1 border-zinc-400 shadow-2xl w-fit px-6 py-3 h-fit text-center justify-center hover:cursor-pointer hover:brightness-75 hover:px-7 hover:py-4 hover:scale-105 transition-all">ATTACK</button>)}
